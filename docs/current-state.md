@@ -33,7 +33,7 @@ Field Guide remains unchanged while this Lab has no versioned public release. Th
 
 ## Evidence status
 
-Fresh local verification was completed on 2026-08-29 for the source/process, declared local-browser, clean-package and isolated-runtime boundaries. The package/runtime proof is bound to the initial clean source commit `ed016da10d034160989066a69348914c14188da7`; the later current-state update is documentation-only and does not replace that candidate identity.
+Fresh local verification was completed on 2026-08-29 for the source/process, declared local-browser, clean-package and isolated-runtime boundaries. The current license-bearing package/runtime proof is bound to clean source commit `dbab424196d4acd1eae1b73f7f26d7e0a9a43889`; this current-state update is documentation-only and does not replace that candidate identity. The earlier 27-file candidate for `ed016da10d034160989066a69348914c14188da7` remains historical pre-license evidence only.
 
 `npm run check` passed with:
 
@@ -41,7 +41,7 @@ Fresh local verification was completed on 2026-08-29 for the source/process, dec
 - two generated-schema checks;
 - seven scenario validations;
 - TypeScript typecheck;
-- nine unit tests;
+- ten unit tests;
 - production build;
 - real MCP client discovery, tool call and exact resource roundtrip.
 
@@ -54,11 +54,12 @@ The MCP process receipt is local-only at `tmp/receipts/mcp-resource-roundtrip.js
 
 The declared local-host matrix passed `4/4` Chromium tests across `restricted`, `capability-success` and `capability-rejected`. The final rerun recorded zero console errors, page errors and unexpected network requests. Visual QA found and fixed a UTF-8 HTTP projection defect before that rerun; its screenshot remains local-only. This evidence stops at the `process` ceiling and leaves named-host/owner claims unproven.
 
-The clean committed-tree package and isolated readback then passed for the exact source commit above:
+The clean committed-tree package and isolated readback then passed for the exact license-bearing source commit above:
 
-- candidate: `runtime-candidates/ed016da-fieldlab-v0.1.0` (ignored/local-only);
-- file closure: `27` files;
-- bundle digest: `sha256:98c9ad89b492afaa256895dd3cf5dc818c7b684a80b249bc5e08beed9d3cc594`;
+- candidate: `runtime-candidates/dbab424-fieldlab-v0.1.0` (ignored/local-only);
+- file closure: `30` files, including `LICENSE`, `LICENSE-DOCUMENTATION.md` and `LICENSING.md` as digest-bound manifest members;
+- bundle digest: `sha256:228458dbb93a818f53cda77dc414cfa705a5df028902ed0c0790194e3c082c56`;
+- canonical SUL-1.0 SHA-256: `c6d0dde0f0463c800e542d7d64237ffef37f43b17004975a558604f17b5d1af1`;
 - exact read-back resource SHA-256: `7638ebdc38857bc980a43a5740c7a49c29a61ddd12207c7baf2816491daa73b3`;
 - validated receipt: `tmp/receipts/runtime.isolated-readback@1.json` (ignored/local-only);
 - proof ceiling: `activated-runtime`, limited to the disposable isolated process.
@@ -70,7 +71,7 @@ The smoke verified candidate file bytes/digests, production dependency installat
 | register/schema/scenario/source checks          | `verified`     | `npm run check` passed on 2026-08-29                                                  |
 | production build + MCP resource roundtrip       | `verified`     | Fresh local process returned the exact self-contained resource bytes above            |
 | local declared-host matrix                      | `verified`     | Process ceiling only; 4/4 cases passed with a clean browser observation ledger        |
-| clean committed-tree runtime candidate          | `verified`     | Exact commit, 27-file closure and bundle digest recorded above                        |
+| clean committed-tree runtime candidate          | `verified`     | Exact license-bearing commit, 30-file closure and bundle digest recorded above        |
 | isolated candidate readback                     | `verified`     | Disposable candidate process reproduced health/tool/resource identities; ceiling only |
 | operator-selected production runtime            | `not_verified` | No operator service installation or production selection was attempted                |
 | tunnel configured-target authority / activation | `not_verified` | External gate; no credential/profile access, preflight or activation was attempted    |
@@ -79,6 +80,6 @@ The smoke verified candidate file bytes/digests, production dependency installat
 
 ## Next safe closure sequence
 
-1. Retain the ignored candidate and receipts as local evidence for source commit `ed016da10d034160989066a69348914c14188da7`.
+1. Retain the ignored license-bearing candidate and receipts as local evidence for source commit `dbab424196d4acd1eae1b73f7f26d7e0a9a43889`; retain the `ed016da` candidate only as historical pre-license evidence.
 2. Keep the public repository distinct from a GitHub Release, npm publication, separate commercial permission, or wider license; none of those later gates has been exercised.
 3. Stop. Operator production selection, tunnel, named-host, owner acceptance, release publication and license changes require their own authorization.
