@@ -17,7 +17,7 @@ Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, and `doc
 - `host-harness/`: declared local host profiles and observation ledger. It is not a ChatGPT emulator and cannot issue named-host receipts.
 - `scenarios/`: versioned domain scenarios. Keep scenario boundaries specific; do not group route, admission, asset, bridge, sandbox, capability, runtime, tunnel, named-host, and owner failures because they look alike in the UI.
 - `schemas/`: scenario and receipt structural contracts. Status is `verified`, `failed`, or `not_verified`; capability disposition and causal confidence remain separate dimensions.
-- `scripts/package-runtime.mjs`: clean committed-tree package candidate. It must refuse dirty source and existing outputs.
+- `scripts/package-runtime.mjs`: clean committed-tree package candidate. It must refuse dirty source and existing outputs, and every candidate/image must carry the complete layered license boundary.
 - `docs/runbooks/`: operator procedures and exact evidence ceilings. A runbook never proves that its procedure ran.
 - `tmp/`, `runtime-candidates/`, Playwright traces, screenshots, and raw receipts are local-only and ignored.
 
@@ -39,7 +39,7 @@ Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, and `doc
 
 - Keep one canonical implementation per behavior. Remove superseded helpers, flags, scenarios, tests, and docs when no evidenced caller needs them.
 - Pin dependencies used by evidence-bearing lanes. Do not add frameworks, hosted services, or compatibility paths without a current scenario that needs them.
-- This repository has no project-original public license. Do not add one or inherit another repository's terms without owner confirmation and a provenance review.
+- This repository uses the path-level license map in `LICENSING.md`: SUL-1.0 for project-original functional materials and CC BY-NC-SA 4.0 for project-original documentation, diagrams, and case-study expression. Preserve private Refrain exclusions, third-party terms, and governing license texts. Do not widen, replace, or inherit terms without owner confirmation and a provenance review.
 
 ## Verification
 

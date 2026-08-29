@@ -61,10 +61,13 @@ if (
   register.publication?.remote_configured !== true ||
   register.publication?.github_release !== false ||
   register.publication?.package_publication !== false ||
-  register.publication?.license_selected !== false
+  register.publication?.license_selected !== true ||
+  register.publication?.license_map !== "LICENSING.md" ||
+  register.publication?.functional_license !== "SUL-1.0" ||
+  register.publication?.documentation_license !== "CC-BY-NC-SA-4.0"
 ) {
   throw new Error(
-    "Publication boundary must describe public source without a release, package publication, or selected license.",
+    "Publication boundary must describe public source with the exact layered license and without a release or package publication.",
   );
 }
 

@@ -113,7 +113,7 @@ The package lane is intentionally later than source/process tests:
 1. Refuse dirty source and an already-existing output path.
 2. Resolve one committed revision.
 3. Build in a detached clean worktree with the pinned lockfile.
-4. Materialize the runtime-only candidate and sorted per-file identities.
+4. Materialize the runtime-only candidate, complete layered license boundary and sorted per-file identities.
 5. Record `release.json` and atomically adopt the candidate path.
 6. Copy the candidate into an isolated temporary projection, install production dependencies, start a fresh loopback process, and compare `/healthz` identity with MCP discovery/tool/resource readback.
 
@@ -128,6 +128,6 @@ Ordinary local actions include source inspection, build/test, bundled Chromium e
 - selecting or deploying an immutable runtime;
 - authenticated named-host discovery or interaction;
 - recording owner acceptance;
-- remote/visibility changes, GitHub or package release publication, and license selection.
+- remote/visibility changes, GitHub or package release publication, license changes, and separate commercial permissions.
 
 Credentials, cookies, private URLs, private conversations/logs and raw owner evidence never enter Git. See [Testing](TESTING.md) and the [tunnel/named-host runbook](runbooks/tunnel-and-named-host.md) for the exact claim ceilings.

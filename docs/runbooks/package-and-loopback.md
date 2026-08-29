@@ -39,9 +39,11 @@ The packager must:
 3. resolve the current committed revision;
 4. build from a detached clean worktree using the pinned lockfile;
 5. copy only the runtime roots declared by the package contract;
-6. calculate sorted per-file byte counts/SHA-256 values and one bundle digest;
-7. write `release.json` with `sourceDirty: false`;
-8. adopt the completed candidate atomically.
+6. include the canonical SUL terms, documentation notice, and path map carried
+   by the source revision;
+7. calculate sorted per-file byte counts/SHA-256 values and one bundle digest;
+8. write `release.json` with `sourceDirty: false`;
+9. adopt the completed candidate atomically.
 
 If any condition fails, retain the error and classify it at the artifact boundary. Do not copy compiled output from the developer checkout or edit the candidate in place.
 
@@ -71,6 +73,8 @@ Expected identity shape:
 - `sourceDirty`: `false`
 - `bundleDigest`: `sha256:<64 hex>`
 - non-empty, unique, safe relative file entries with exact byte/SHA-256 identities
+- `LICENSE`, `LICENSE-DOCUMENTATION.md`, and `LICENSING.md` included in the
+  exact file closure
 
 This proves a candidate artifact exists; it does not prove the candidate executes.
 

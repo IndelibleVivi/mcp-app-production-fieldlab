@@ -2,6 +2,7 @@
   "name": "mcp-app-production-fieldlab",
   "version": "0.1.0-private.0",
   "private": true,
+  "license": "SEE LICENSE IN LICENSING.md",
   "description": "Executable MCP App production boundary laboratory",
   "repository": {
     "type": "git",
@@ -11,7 +12,7 @@
   "type": "module",
   "scripts": {
     "build": "skybridge build && node scripts/assert-build.mjs",
-    "check": "npm run validate:register && npm run validate:schemas && npm run validate:scenarios && npm run typecheck && npm run test && npm run build && npm run test:mcp",
+    "check": "npm run validate:register && npm run validate:licensing && npm run validate:schemas && npm run validate:scenarios && npm run typecheck && npm run test && npm run build && npm run test:mcp",
     "dev": "skybridge dev",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
@@ -24,6 +25,7 @@
     "test:mcp": "tsx scripts/mcp-smoke.ts",
     "typecheck": "tsc --noEmit -p tsconfig.check.json",
     "validate:register": "node scripts/validate-register.mjs",
+    "validate:licensing": "node scripts/validate-licensing.mjs",
     "validate:scenarios": "tsx scripts/validate-scenarios.ts",
     "validate:schemas": "tsx scripts/generate-schemas.ts --check"
   },

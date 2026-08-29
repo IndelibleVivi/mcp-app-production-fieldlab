@@ -6,6 +6,7 @@ ENV NODE_ENV=production \
 WORKDIR /app
 
 COPY package.json package-lock.json ./
+COPY LICENSE LICENSE-DOCUMENTATION.md LICENSING.md ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 COPY dist ./dist

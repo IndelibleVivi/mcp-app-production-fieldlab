@@ -23,6 +23,8 @@ const FORMAT = "mcp-app-fieldlab-runtime@1";
 const EXPECTED_RESOURCE_URI =
   "ui://mcp-app-production-fieldlab/inspect-boundary/v1.html";
 const EXPECTED_MIME_TYPE = "text/html;profile=mcp-app";
+const CANONICAL_SUL_SHA256 =
+  "c6d0dde0f0463c800e542d7d64237ffef37f43b17004975a558604f17b5d1af1";
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const REVISION_PATTERN = /^[a-f0-9]{40}$/;
 
@@ -178,6 +180,27 @@ function parseAndVerifyRelease(candidateRoot) {
   )}`;
   if (release.bundleDigest !== expectedBundleDigest) {
     fail("Candidate bundleDigest does not match the canonical file list.");
+  }
+  for (const requiredPath of [
+    "LICENSE",
+    "LICENSE-DOCUMENTATION.md",
+    "LICENSING.md",
+  ]) {
+    if (!declaredPaths.includes(requiredPath)) {
+      fail(`Candidate is missing required licensing material: ${requiredPath}`);
+    }
+  }
+  if (
+    sha256(readFileSync(path.join(candidateRoot, "LICENSE"))) !==
+    CANONICAL_SUL_SHA256
+  ) {
+    fail("Candidate LICENSE does not match the canonical SUL-1.0 text.");
+  }
+  const candidatePackage = JSON.parse(
+    readFileSync(path.join(candidateRoot, "package.json"), "utf8"),
+  );
+  if (candidatePackage.license !== "SEE LICENSE IN LICENSING.md") {
+    fail("Candidate package metadata does not point to LICENSING.md.");
   }
   return release;
 }

@@ -9,7 +9,9 @@ Updated: 2026-08-29
 - Repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
 - Visibility: public
 - Package publication: disabled by `package.json` `private: true`
-- Project-original license: not selected; no general public reuse grant
+- Functional license: `SUL-1.0` (source-available; use-restricted)
+- Documentation license: `CC-BY-NC-SA-4.0`
+- License map: `LICENSING.md`
 - GitHub Release: none
 - Method authority: MCP Server Engineering Field Guide `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
 - Founding observation: Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`
@@ -26,6 +28,7 @@ Field Guide remains unchanged while this Lab has no versioned public release. Th
 - seven boundary scenarios from local resource delivery through owner acceptance;
 - declared local-host profiles and an observation ledger that explicitly sets `namedHostSimulation: false`;
 - clean-package and isolated-runtime commands specified by the repository contract;
+- layered SUL-1.0 / CC BY-NC-SA 4.0 licensing with private-source and third-party exclusions propagated into runtime candidates;
 - operator runbooks and a pinned, public-safe Refrain mechanism case study.
 
 ## Evidence status
@@ -77,5 +80,5 @@ The smoke verified candidate file bytes/digests, production dependency installat
 ## Next safe closure sequence
 
 1. Retain the ignored candidate and receipts as local evidence for source commit `ed016da10d034160989066a69348914c14188da7`.
-2. Keep the public repository distinct from a GitHub Release, npm publication or reuse grant; none of those later gates has been exercised.
-3. Stop. Operator production selection, tunnel, named-host, owner acceptance, release publication and license selection require their own authorization.
+2. Keep the public repository distinct from a GitHub Release, npm publication, separate commercial permission, or wider license; none of those later gates has been exercised.
+3. Stop. Operator production selection, tunnel, named-host, owner acceptance, release publication and license changes require their own authorization.

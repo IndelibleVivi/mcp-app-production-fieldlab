@@ -46,12 +46,12 @@ Only reusable engineering mechanisms, source-path citations and a pinned provena
 
 ## License boundary
 
-This repository has no selected project-original public license. Refrain's private repository status, dependency licenses or any third-party terms do not supply one. Public source visibility is not a reuse grant; future licensing requires a separate rights review and owner choice for each governed material class.
+The Field Lab's project-original functional materials use SUL-1.0, while project-original documentation, diagrams, and case-study expression use CC BY-NC-SA 4.0 under the exact path map in [`LICENSING.md`](../../LICENSING.md). These grants apply only to rights the relevant Field Lab licensors control. They do not license or change the status of private Refrain source, cited paths, product assets, runtime evidence, trademarks, dependency material, or other third-party rights.
 
 For this Field Lab's authorized public-source publication:
 
 1. the cited source visibility and rights/provenance record were re-checked;
 2. the tracked tree must remain free of copied product code, private evidence and machine-specific facts;
-3. no project-original license, GitHub Release or package publication is implied;
-4. any later license must be selected by material and rights holder;
+3. the layered Field Lab licenses must not be represented as a grant over Refrain or third-party material;
+4. any later license change or separate commercial permission must be selected by material and rights holder;
 5. only a later versioned public release may justify a small companion link in Field Guide documentation.

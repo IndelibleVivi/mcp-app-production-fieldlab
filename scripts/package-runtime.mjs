@@ -19,7 +19,14 @@ import { spawnSync } from "node:child_process";
 const FORMAT = "mcp-app-fieldlab-runtime@1";
 const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const REVISION_PATTERN = /^[a-f0-9]{40}$/;
-const RUNTIME_ROOTS = ["dist", "package.json", "package-lock.json"];
+export const RUNTIME_ROOTS = [
+  "dist",
+  "package.json",
+  "package-lock.json",
+  "LICENSE",
+  "LICENSE-DOCUMENTATION.md",
+  "LICENSING.md",
+];
 
 function fail(message) {
   throw new Error(message);

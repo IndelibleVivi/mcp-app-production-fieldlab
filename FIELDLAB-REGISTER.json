@@ -61,6 +61,9 @@
     "remote_configured": true,
     "github_release": false,
     "package_publication": false,
-    "license_selected": false
+    "license_selected": true,
+    "license_map": "LICENSING.md",
+    "functional_license": "SUL-1.0",
+    "documentation_license": "CC-BY-NC-SA-4.0"
   }
 }

@@ -2,7 +2,7 @@
 
 MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的工程实验室。它把 MCP App 从 source 写到 local process、exact resource delivery、browser host、clean package、activated runtime，再到 tunnel、named host 与 owner acceptance 的各个边界拆开验证，避免把“本地能打开”误写成“真实 host 已接受”。
 
-当前版本是 **public source / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release、registry publication 或 project-original public license。`package.json` 保持 `private: true`，用于阻止误发 npm；公开可见不等于 open source，也不向公众授予一般性的使用、修改或再分发许可。仓库里的 tunnel、named-host 与 owner 场景是 operator runbook 和 evidence contract，不代表这些外部步骤已经运行。
+当前版本是 **public source / source-available / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release 或 registry publication。Project-original functional materials 使用 `SUL-1.0`，原创 documentation / diagrams / case-study expression 使用 `CC BY-NC-SA 4.0`；这不是 OSI open source。`package.json` 保持 `private: true`，用于阻止误发 npm。仓库里的 tunnel、named-host 与 owner 场景是 operator runbook 和 evidence contract，不代表这些外部步骤已经运行。
 
 ## 为什么单独成 repo
 
@@ -80,6 +80,7 @@ npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-v0.1.0
 | -------------------------------------------------- | ------------------------------------------------------------------------------------ |
 | [`SPEC.md`](SPEC.md)                               | programme contract、non-goals 与 acceptance boundaries                               |
 | [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json) | Field Guide version pin、selected profiles、founding provenance 与 publication state |
+| [`LICENSING.md`](LICENSING.md)                     | functional/docs path map、private-source 与 third-party exclusions                   |
 | [`src/`](src)                                      | neutral server、exact resource contract、view 与 evidence schemas                    |
 | [`host-harness/`](host-harness)                    | declared local profiles 与 observable ledger；不模拟 named host                      |
 | [`scenarios/`](scenarios)                          | versioned scenario contracts 与各自的 authorization class                            |
@@ -92,4 +93,10 @@ Raw receipts、Playwright traces/screenshots、credentials、cookies、private U
 
 ## Publication and rights
 
-本 repo 的 source 在 GitHub 上公开可见，但没有 `LICENSE` 文件或 project-original public license，因此没有向公众作出一般性的 reuse grant。不要从 Field Guide、private Refrain source 或依赖包的 license 推导本 repo 的授权；GitHub source visibility、GitHub Release、npm publication 与 license selection 是不同边界。后续如需允许使用、修改或再分发，必须由 owner 另行选择 exact license 与适用 material scope。
+本 repo 使用 path-level layered licensing：
+
+- project-original functional materials 使用 [SUL-1.0](LICENSE)。它允许 personal、non-commercial 与 internal business use；只允许免费且非商业地向他人分发或提供，不允许收费分发、商业性对外提供或收费托管；
+- project-original documentation、diagrams 与 case-study expression 使用 [CC BY-NC-SA 4.0](LICENSE-DOCUMENTATION.md)，要求 attribution、NonCommercial 与 ShareAlike；
+- exact path scope、private Refrain provenance 与 third-party exclusions 见 [LICENSING.md](LICENSING.md)。
+
+不要从 Field Guide、private Refrain source 或依赖包的 license 推导额外授权。GitHub source visibility、GitHub Release、npm publication 与另行商业许可仍是不同边界。

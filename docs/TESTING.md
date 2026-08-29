@@ -20,19 +20,20 @@ Local test execution 本身不需要 private credentials、public origin、tunne
 
 ## Command matrix
 
-| Command                                               | Surface                                                                                | Maximum local claim                                            | Not proved                                                   |
-| ----------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------ |
-| `npm run validate:register`                           | Field Guide pin、profile selection、publication state                                  | source                                                         | Profile correctness beyond the pinned authority; publication |
-| `npm run validate:schemas`                            | generated schema matches source schema                                                 | source                                                         | Runtime serialization by itself                              |
-| `npm run validate:scenarios`                          | scenario structure、authorization/runner invariants                                    | source                                                         | Scenario execution                                           |
-| `npm run typecheck`                                   | TypeScript contracts                                                                   | source                                                         | Built or runtime behavior                                    |
-| `npm run test`                                        | deterministic unit contracts                                                           | source/process only where a test starts an exact local process | Browser host、package、tunnel、named host                    |
-| `npm run build`                                       | production server/view artifacts exist and manifest keys are present                   | artifact shape from current checkout                           | Clean revision、MCP readback、host mount                     |
-| `npm run test:mcp`                                    | fresh production MCP process; tool/resource discovery, call and exact `resources/read` | process                                                        | Browser sandbox、clean package、tunnel、named host           |
-| `npm run check`                                       | all rows above except browser host                                                     | process                                                        | `test:host` and every later rung                             |
-| `npm run test:host`                                   | exact built resource under declared local profiles                                     | process                                                        | ChatGPT/named-host behavior、tunnel、owner acceptance        |
-| `npm run package:runtime -- --out=<new-ignored-path>` | clean revision runtime candidate and release manifest                                  | artifact                                                       | Candidate execution、production selection                    |
-| `npm run smoke:runtime -- --candidate=<path>`         | isolated candidate process + health/MCP/resource readback                              | activated process for that isolated candidate                  | Operator service selection、tunnel、named host、owner        |
+| Command                                               | Surface                                                                                | Maximum local claim                                            | Not proved                                                    |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ------------------------------------------------------------- |
+| `npm run validate:register`                           | Field Guide pin、profile selection、publication/license state                          | source                                                         | Profile correctness beyond the pinned authority; publication  |
+| `npm run validate:licensing`                          | canonical SUL text、CC notice、path map、first-public boundary 与 package metadata     | source                                                         | Rights ownership beyond repository evidence; legal compliance |
+| `npm run validate:schemas`                            | generated schema matches source schema                                                 | source                                                         | Runtime serialization by itself                               |
+| `npm run validate:scenarios`                          | scenario structure、authorization/runner invariants                                    | source                                                         | Scenario execution                                            |
+| `npm run typecheck`                                   | TypeScript contracts                                                                   | source                                                         | Built or runtime behavior                                     |
+| `npm run test`                                        | deterministic unit contracts                                                           | source/process only where a test starts an exact local process | Browser host、package、tunnel、named host                     |
+| `npm run build`                                       | production server/view artifacts exist and manifest keys are present                   | artifact shape from current checkout                           | Clean revision、MCP readback、host mount                      |
+| `npm run test:mcp`                                    | fresh production MCP process; tool/resource discovery, call and exact `resources/read` | process                                                        | Browser sandbox、clean package、tunnel、named host            |
+| `npm run check`                                       | all rows above except browser host                                                     | process                                                        | `test:host` and every later rung                              |
+| `npm run test:host`                                   | exact built resource under declared local profiles                                     | process                                                        | ChatGPT/named-host behavior、tunnel、owner acceptance         |
+| `npm run package:runtime -- --out=<new-ignored-path>` | clean revision runtime candidate and release manifest                                  | artifact                                                       | Candidate execution、production selection                     |
+| `npm run smoke:runtime -- --candidate=<path>`         | isolated candidate process + health/MCP/resource readback                              | activated process for that isolated candidate                  | Operator service selection、tunnel、named host、owner         |
 
 Runbooks, scenario JSON and generated schemas are contracts, not receipts that a run happened.
 
@@ -92,6 +93,8 @@ Package/runtime checks must follow [package and loopback runbook](runbooks/packa
 
 - package refuses dirty source and existing output;
 - build occurs from the selected clean committed revision;
+- candidate and Dockerfile retain `LICENSE`, `LICENSE-DOCUMENTATION.md`, and
+  `LICENSING.md`;
 - `release.json` lists sorted relative paths, byte counts and SHA-256 values;
 - bundle digest, source revision and resource bytes retain separate identities;
 - runtime smoke uses a fresh isolated projection and loopback port;

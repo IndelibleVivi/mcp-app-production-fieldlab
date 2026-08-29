@@ -1,4 +1,10 @@
-import { mkdtempSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
+import {
+  mkdtempSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -9,6 +15,7 @@ const {
   assertNoTrackedInstallProjection,
   canonicalFileListBytes,
   parsePackageArguments,
+  RUNTIME_ROOTS,
   runtimeFileEntries,
 } = packageRuntime;
 
@@ -62,6 +69,21 @@ describe("runtime package contract", () => {
     mkdirSync(path.join(root, "node_modules"));
     expect(() => assertNoTrackedInstallProjection(root)).toThrow(
       /committed revision contains node_modules/,
+    );
+  });
+
+  it("carries the complete layered license boundary into runtime artifacts", () => {
+    for (const requiredPath of [
+      "LICENSE",
+      "LICENSE-DOCUMENTATION.md",
+      "LICENSING.md",
+    ]) {
+      expect(RUNTIME_ROOTS).toContain(requiredPath);
+    }
+
+    const dockerfile = readFileSync("deploy/runtime/Dockerfile", "utf8");
+    expect(dockerfile).toContain(
+      "COPY LICENSE LICENSE-DOCUMENTATION.md LICENSING.md ./",
     );
   });
 });

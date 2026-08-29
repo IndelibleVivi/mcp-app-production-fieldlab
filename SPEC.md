@@ -45,7 +45,7 @@ LLM/host 提供 intent routing、tool invocation 与 conversation context；spec
 - **Reachability**: specimen 默认 stdio/loopback；不包含 public origin、账户、OAuth 或 Refrain-operated backend。
 - **Dependencies**: 只保留运行 neutral MCP App 和真实 Chromium harness 所需的 pinned production/dev dependencies；不引入 Refrain product renderer、audio engine 或 sound assets。
 - **Privacy**: credentials、cookies、private host URLs、raw named-host logs 与未经清理的 screenshots 不进入 Git。Public-safe receipt 是 derived projection，不是 independent reproduction。
-- **Publication**: source repository 在 owner 明确授权后公开于 `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`。当前没有 GitHub Release、package publication 或 project-original public license；公开可见不构成一般 reuse grant，后续 release、registry publication 与 license selection 仍是独立 owner gates。
+- **Publication**: source repository 在 owner 明确授权后公开于 `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`。当前没有 GitHub Release 或 package publication。Project-original functional material 使用 SUL-1.0，原创 documentation / diagrams / case-study expression 使用 CC BY-NC-SA 4.0；`LICENSING.md` 是 exact path authority。后续 release、registry publication、license change 或 separate commercial permission 仍是独立 owner gates。
 
 ## Authority Split
 
@@ -67,6 +67,7 @@ The first usable repository version must include:
 - negative-path tests for external network, missing capability and malformed/incorrect resource identity;
 - a versioned evidence-receipt schema and generated local receipts whose claim ceilings are explicit;
 - a clean-source runtime package with release identity and a process-level activation smoke;
+- a path-level SUL-1.0 / CC BY-NC-SA 4.0 license map whose required notices survive runtime packaging;
 - operator runbooks for package, loopback runtime, tunnel boundary and named-host acceptance, without pretending the latter two were executed;
 - a Refrain founding case study that cites exact source evidence but contains no copied product code or private runtime data;
 - companion-version linkage back to the Field Guide without a second installable skill.
