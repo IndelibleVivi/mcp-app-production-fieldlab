@@ -40,59 +40,58 @@ The Field Guide remains unchanged while this Lab has no versioned public release
 
 ## Evidence status
 
-Fresh local verification completed on 2026-08-29 for source/process, declared local-browser, clean-package, and isolated-runtime boundaries. The current license-bearing package/runtime proof is pinned to clean source commit `dbab424196d4acd1eae1b73f7f26d7e0a9a43889`. The review-hardening source changes require a new candidate from the clean implementation commit that the root creates; this old identity must not be reused. The earlier 27-file candidate for `ed016da10d034160989066a69348914c14188da7` remains historical pre-license evidence only.
+Fresh local verification completed on 2026-08-29 for the review-hardening source/process, declared local-browser, clean-package, and isolated-runtime boundaries. The current package/runtime proof is pinned to clean implementation commit `5eba892b6be5407b0ac4aa658f398f7b2eec5373`. This file is the subsequent evidence-only documentation update and does not change candidate identity. Earlier `dbab424...` and `ed016da...` candidates remain historical evidence only, not proof for the current revision.
 
-The recorded baseline `npm run check` covered:
+On the clean commit, `npm run check` covered:
 
-- register and layered-license validation;
+- register, layered-license, and bilingual-document validation;
 - `2` generated-schema checks;
 - `7` scenario validations;
 - TypeScript typechecking;
-- `10` unit tests;
+- `40` unit tests across `7/7` test files;
 - production build;
 - real MCP client discovery, tool call, and exact resource roundtrip.
 
-The review-hardening change adds documentation/source semantic validation and focused unit coverage. The final test count must be updated from a fresh full check on the clean implementation commit, not from working-tree intent.
-
-The baseline MCP process receipt is local-only at `tmp/receipts/mcp-resource-roundtrip.json` and binds:
+The fresh MCP process receipt is local-only at `tmp/receipts/mcp-resource-roundtrip.json` and binds:
 
 - resource: `ui://mcp-app-production-fieldlab/inspect-boundary/v1.html`
 - MIME: `text/html;profile=mcp-app`
-- bytes: `550779`
-- SHA-256: `7638ebdc38857bc980a43a5740c7a49c29a61ddd12207c7baf2816491daa73b3`
+- bytes: `552146`
+- SHA-256: `13e0d52a1cf4b4239459065d508ab934a939ab199d44d943c4e5e543ec13ffb8`
+- MCP initialize server version: `0.1.0-private.0`
+- source revision: `5eba892b6be5407b0ac4aa658f398f7b2eec5373`
+- source dirty: `false`
 
-The review-hardening UI lane passed a fresh bounded local rerun of `5/5` Chromium tests across `restricted`, `capability-success`, and `capability-rejected`, adding assertions for pending/terminal capability semantics, keyboard reachability, busy state, and 320px/390px overflow. The ledger still requires zero unexpected network and leaves named-host/owner in `not_proven`. Its highest ceiling remains `process`.
+The browser-host lane passed an exact Playwright JSON attestation for `5/5` Chromium tests covering `restricted`, `capability-success`, `capability-rejected`, pending/terminal capability semantics, keyboard reachability, busy state, and 320px/390px overflow. The host receipt joins the clean source/resource identity above exactly, sets `namedHostSimulation: false`, and has ceiling=`process`.
 
-The currently registered clean committed-tree package and isolated readback still belong to the pre-review source commit above:
+The current clean committed-tree candidate and isolated readback are:
 
-- candidate: `runtime-candidates/dbab424-fieldlab-v0.1.0` (ignored/local-only)
-- file closure: `30` files, including `LICENSE`, `LICENSE-DOCUMENTATION.md`, and `LICENSING.md` as digest-bound manifest members
-- bundle digest: `sha256:228458dbb93a818f53cda77dc414cfa705a5df028902ed0c0790194e3c082c56`
+- candidate: `runtime-candidates/5eba892-fieldlab-review` (ignored/local-only)
+- file closure: `43` files, including candidate-owned `scenarios/`, compiled evidence policy, `LICENSE`, `LICENSE-DOCUMENTATION.md`, and `LICENSING.md`
+- bundle digest: `sha256:2e7dba961f82f120fdbdf68e440f5d64f7d0db89f566bf8ea0ff987026e2b014`
 - canonical SUL-1.0 SHA-256: `c6d0dde0f0463c800e542d7d64237ffef37f43b17004975a558604f17b5d1af1`
-- exact read-back resource bytes: `550779`
-- exact read-back resource SHA-256: `7638ebdc38857bc980a43a5740c7a49c29a61ddd12207c7baf2816491daa73b3`
+- exact read-back resource bytes: `552146`
+- exact read-back resource SHA-256: `13e0d52a1cf4b4239459065d508ab934a939ab199d44d943c4e5e543ec13ffb8`
+- package receipt: `tmp/receipts/package.clean-revision@1.json` (ignored/local-only)
 - validated receipt: `tmp/receipts/runtime.isolated-readback@1.json` (ignored/local-only)
 - proof ceiling: `activated-runtime`, limited to the disposable isolated process
 
-That historical smoke verified candidate files/digests, production dependency installation, same-origin `/healthz` release identity, MCP discovery, tool call, resource readback, and component-only projection. Because the review-hardening source/package contract changes, a new clean committed revision must be packaged and smoked before replacing the candidate source revision, file count, bundle digest, resource bytes/hash, and receipt path here, in the Chinese mirror, and in `DOCS-REGISTER.json`.
+The fresh run verified the candidate file/digest closure, candidate-owned full scenario set, transitive joins across the four receipts, production dependency installation, same-origin `/healthz` release identity, package-authoritative MCP version, MCP discovery/tool call/resource readback, component-only projection, and successful child stop plus temporary-projection cleanup before persisting the runtime receipt.
 
-| Boundary id                   | Status         | Current claim                                                                                   |
-| ----------------------------- | -------------- | ----------------------------------------------------------------------------------------------- |
-| `source-checks`               | `verified`     | Baseline local check passed; final review-hardening count awaits the clean implementation check |
-| `resource-roundtrip`          | `verified`     | Baseline fresh local process returned the exact bytes above; new build identity awaits refresh  |
-| `local-host-matrix`           | `verified`     | Fresh bounded review-hardening rerun `5/5`; ceiling=`process`                                   |
-| `clean-runtime-candidate`     | `verified`     | Only the pre-review `dbab424...` candidate; new source cannot reuse this evidence               |
-| `isolated-runtime-readback`   | `verified`     | Only the same pre-review disposable candidate process                                           |
-| `remote-ci-execution`         | `not_verified` | Workflow source exists, but no qualifying remote GitHub Actions run was observed in this pass   |
-| `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted                          |
-| `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted               |
-| `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted                       |
-| `owner-acceptance`            | `not_verified` | Owner-only gate; no owner observation was requested or recorded                                 |
-| `release-publication`         | `not_verified` | No GitHub Release or registry/container publication was created                                 |
+| Boundary id                   | Status         | Current claim                                                                                 |
+| ----------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
+| `source-checks`               | `verified`     | Clean commit `5eba892...` passed docs/schema/scenario/type/unit/build/MCP checks              |
+| `resource-roundtrip`          | `verified`     | Fresh clean process returned the exact self-contained resource identity above                 |
+| `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation passed; ceiling=`process`                              |
+| `clean-runtime-candidate`     | `verified`     | The `43`-file candidate and release manifest bind clean commit `5eba892...`                   |
+| `isolated-runtime-readback`   | `verified`     | The same candidate reproduced in a disposable local process; ceiling=`activated-runtime`      |
+| `remote-ci-execution`         | `not_verified` | Workflow source exists, but no qualifying remote GitHub Actions run was observed in this pass |
+| `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted                        |
+| `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted             |
+| `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted                     |
+| `owner-acceptance`            | `not_verified` | Owner-only gate; no owner observation was requested or recorded                               |
+| `release-publication`         | `not_verified` | No GitHub Release or registry/container publication was created                               |
 
-## Next safe closure sequence
+## Remaining gates
 
-1. Run final local checks over the complete review-hardening source/docs/tests/workflow diff and create clean implementation commit A.
-2. Build a new ignored runtime candidate from commit A, run isolated smoke, and record the exact source revision, file count, bundle digest, resource bytes/hash, and receipt path. Do not reuse the `dbab424...` candidate.
-3. Synchronize the exact current-state facts in this file, `current-state.md`, and `DOCS-REGISTER.json` as documentation-only commit B. Do not present commit B as the candidate identity.
-4. Keep remote CI, operator production selection, tunnel, named host, owner acceptance, and release publication as separate gates. Do not promote status without each gate's authorization and actual execution.
+This pass did not push. Workflow source exists, but remote GitHub Actions has not run. Remote CI, operator production selection, container activation/publication, tunnel, named host, owner acceptance, and GitHub/npm publication remain separate gates. Do not promote status without each gate's authorization and actual execution.
