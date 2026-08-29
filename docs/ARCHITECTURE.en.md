@@ -6,7 +6,11 @@
 
 MCP App Production Field Lab does not introduce another framework. Its core job is to place authority, execution surfaces, and evidence ceilings in one explicit topology. The neutral specimen is realistic enough to exercise MCP resources, the App bridge, a browser sandbox, and package/runtime paths, yet small enough to keep Refrain product logic outside the repository. MCP Server Engineering Field Guide `2.0.1` remains the method authority.
 
+![Field Lab front door: projection boundaries and local receipt chain](architecture/field-lab-evidence-chain.en.svg)
+
 ## Authority topology
+
+![Companion boundary between the Field Guide and Field Lab](architecture/field-guide-field-lab.en.svg)
 
 ```mermaid
 flowchart LR
@@ -146,6 +150,8 @@ That isolated process can prove the candidate executes and self-reports consiste
 `DOCS-REGISTER.json` registers Chinese-default and English-mirror pairs, reciprocal switches, and shared facts that must stay synchronized. `scripts/validate-docs.mjs` checks only structure and registered facts; it does not claim semantic equivalence for prose. `LICENSE` and `LICENSE-DOCUMENTATION.md` remain governing singletons. `LICENSING.md` is the governing English path map, while the Chinese version is for reading convenience only.
 
 `.github/workflows/verify.yml` is credential-free, read-only public witness source. It can replay source/process, browser-host, clean-package, and isolated-runtime lanes. A workflow file existing is not evidence that a remote run completed; remote CI execution remains `not_verified` until GitHub Actions actually runs it.
+
+The two bilingual native-SVG pairs in `docs/architecture/` are the README and architecture front doors. Each SVG is both editable source and publication artifact. It must remain self-contained, with no script, `foreignObject`, external font, image, stylesheet, or remote fetch. English and Chinese siblings share geometry, stable group IDs, and boundary semantics while keeping natural language copy. A semantic change requires both language files to change together and real-browser inspection at 1600×900 and README width; XML validity does not substitute for legibility review.
 
 ## Trust and side-effect boundaries
 

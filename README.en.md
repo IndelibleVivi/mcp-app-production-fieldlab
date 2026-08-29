@@ -8,6 +8,8 @@ MCP App Production Field Lab is an executable, reproducible, claim-bounded engin
 
 The current publication state is **`public-source` / source-available / unreleased package**. The source repository is public at [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab), but there is no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
 
+![Field Lab: one neutral specimen, three projection boundaries, and four local receipts](docs/architecture/field-lab-evidence-chain.en.svg)
+
 ## Why this is a separate repository
 
 The existing Field Guide and this Field Lab answer different questions:
@@ -20,6 +22,8 @@ The existing Field Guide and this Field Lab answer different questions:
 | [Refrain](https://github.com/IndelibleVivi/refrain) (private source authority; link requires access)              | Product source, renderer, deployment, runtime, and owner truth for the founding case                                            |
 
 The one-way version link lives in [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json): Field Guide release `2.0.1` is pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`. The Field Lab does not copy Field Guide profiles, create a second general-purpose skill, or make Refrain a runtime dependency. The Field Guide remains unchanged until a real public Field Lab release exists and a companion discoverability link can be considered.
+
+![Field Guide and Field Lab: two repositories joined only by a version pin, scenario contract, and receipt grammar](docs/architecture/field-guide-field-lab.en.svg)
 
 ## Specimen contract
 
@@ -87,6 +91,7 @@ Every receipt has one `method_rung` and records `not_proven` explicitly. Lower-l
 | [`SPEC.en.md`](SPEC.en.md)                                     | Programme contract, non-goals, and acceptance boundaries                                        |
 | [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json)             | Field Guide version pin, selected profiles, founding provenance, and publication state          |
 | [`DOCS-REGISTER.json`](DOCS-REGISTER.json)                     | Chinese/English pairs, registered shared facts, and current-state synchronization contract      |
+| [`docs/architecture/`](docs/architecture)                      | Bilingual native-SVG front doors for the Lab evidence chain and Guide/Lab companion boundary    |
 | [`LICENSING.md`](LICENSING.md)                                 | Governing functional/documentation path map and private-source/third-party exclusions           |
 | [`src/`](src)                                                  | Neutral server, exact resource contract, view, and evidence policy/schema                       |
 | [`host-harness/`](host-harness)                                | Declared local profiles and observable ledger; it does not simulate a named host                |

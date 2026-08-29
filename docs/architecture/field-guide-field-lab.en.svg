@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="pair-title pair-desc" lang="en">
+  <title id="pair-title">Companion architecture for the MCP Server Engineering Field Guide and MCP App Production Field Lab</title>
+  <desc id="pair-desc">An editorial diptych. The left page is the Field Guide's method and profile authority, moving from named sources to stable method and bounded decisions. The right page is the Field Lab's execution evidence, moving a neutral specimen through process, browser, package, and runtime observations to an exact receipt. Only the Field Guide version pin, scenario contract, and receipt grammar cross the seam; authority does not transfer between repositories.</desc>
+  <defs>
+    <marker id="pair-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#78917c"/>
+    </marker>
+    <style>
+      .serif { font-family: "Iowan Old Style", "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif; }
+      .sans { font-family: "Avenir Next", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .mono { font-family: "SFMono-Regular", "Noto Sans Mono CJK SC", Consolas, monospace; }
+      .ink { fill: #20241f; }
+      .soft { fill: #515a52; }
+      .muted { fill: #778078; }
+      .green { fill: #4f6955; }
+      .micro { font-size: 11px; letter-spacing: 1.55px; }
+      .row-title { font-size: 22px; font-weight: 500; }
+      .row-copy { font-size: 13px; letter-spacing: .1px; }
+      .hairline { stroke: #dce5de; stroke-width: 1; vector-effect: non-scaling-stroke; }
+      .strong-line { stroke: #9dad9f; stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#fbfdfa"/>
+
+  <g id="heading">
+    <text x="96" y="62" class="mono micro green">COMPANION ARCHITECTURE / V-PAIR</text>
+    <text x="1504" y="62" text-anchor="end" class="mono micro muted">MCP ENGINEERING · 2026</text>
+    <text x="96" y="132" class="serif ink" font-size="58" font-weight="500" letter-spacing="-1.8">Two repositories, one seam.</text>
+    <text x="96" y="176" class="serif soft" font-size="19">Method determines what must be asked; execution records what actually happened.</text>
+    <path d="M96 212H1504" class="hairline"/>
+  </g>
+
+  <g id="field-guide-plane">
+    <text x="96" y="258" class="mono micro green">01 / METHOD AUTHORITY</text>
+    <text x="96" y="309" class="serif ink" font-size="36" font-weight="500" letter-spacing="-.6">Field Guide</text>
+    <text x="701" y="306" text-anchor="end" class="serif green" font-size="18">interpret &amp; decide</text>
+    <text x="96" y="346" class="sans soft" font-size="15">Select the correct revision, owner, and applicable controls,</text>
+    <text x="96" y="370" class="sans soft" font-size="15">then set the furthest boundary each claim may reach.</text>
+    <path d="M96 401H701" class="hairline"/>
+
+    <g id="guide-sources">
+      <text x="96" y="439" class="mono micro muted">01 / NAMED SOURCES</text>
+      <text x="96" y="474" class="serif row-title ink">Named sources</text>
+      <text x="286" y="452" class="sans row-copy soft">MCP revisions · JSON-RPC / HTTP</text>
+      <text x="286" y="476" class="sans row-copy muted">dated integration guidance</text>
+      <path d="M96 500H701" class="hairline"/>
+    </g>
+
+    <g id="guide-method">
+      <text x="96" y="538" class="mono micro muted">02 / STABLE METHOD</text>
+      <text x="96" y="573" class="serif row-title ink">Stable method</text>
+      <text x="286" y="551" class="sans row-copy soft">revision profile · ownership</text>
+      <text x="286" y="575" class="sans row-copy muted">applicability · enforcement order</text>
+      <path d="M96 599H701" class="hairline"/>
+    </g>
+
+    <g id="guide-decision">
+      <text x="96" y="637" class="mono micro muted">03 / BOUNDED DECISION</text>
+      <text x="96" y="672" class="serif row-title ink">Bounded decision</text>
+      <text x="286" y="650" class="sans row-copy soft">finding · evidence ceiling</text>
+      <text x="286" y="674" class="sans row-copy muted">residual risk · declared unknowns</text>
+      <path d="M96 698H701" class="hairline"/>
+    </g>
+  </g>
+
+  <g id="field-lab-plane">
+    <text x="899" y="258" class="mono micro green">02 / EXECUTION EVIDENCE</text>
+    <text x="899" y="309" class="serif ink" font-size="36" font-weight="500" letter-spacing="-.6">Field Lab</text>
+    <text x="1504" y="306" text-anchor="end" class="serif green" font-size="18">execute &amp; observe</text>
+    <text x="899" y="346" class="sans soft" font-size="15">Move the same neutral specimen through real boundaries,</text>
+    <text x="899" y="370" class="sans soft" font-size="15">then sign only the layer that was actually observed.</text>
+    <path d="M899 401H1504" class="hairline"/>
+
+    <g id="lab-specimen">
+      <text x="899" y="439" class="mono micro muted">01 / NEUTRAL SPECIMEN</text>
+      <text x="899" y="474" class="serif row-title ink">Executable specimen</text>
+      <text x="1180" y="452" class="mono row-copy soft">inspect_boundary</text>
+      <text x="1180" y="476" class="mono row-copy muted">ui://…/inspect-boundary/v1.html</text>
+      <path d="M899 500H1504" class="hairline"/>
+    </g>
+
+    <g id="lab-observation-chain">
+      <text x="899" y="538" class="mono micro muted">02 / OBSERVATION CHAIN</text>
+      <path d="M1100 566H1464" class="strong-line" marker-end="url(#pair-arrow)"/>
+      <g fill="#4f6955">
+        <circle cx="1100" cy="566" r="3.8"/>
+        <circle cx="1209" cy="566" r="3.8"/>
+        <circle cx="1321" cy="566" r="3.8"/>
+        <circle cx="1433" cy="566" r="3.8"/>
+      </g>
+      <g class="mono muted" font-size="10" letter-spacing=".7">
+        <text x="1100" y="589" text-anchor="middle">PROCESS</text>
+        <text x="1209" y="589" text-anchor="middle">BROWSER</text>
+        <text x="1321" y="589" text-anchor="middle">PACKAGE</text>
+        <text x="1433" y="589" text-anchor="middle">RUNTIME</text>
+      </g>
+      <path d="M899 599H1504" class="hairline"/>
+    </g>
+
+    <g id="lab-receipt">
+      <text x="899" y="637" class="mono micro muted">03 / EXACT RECEIPT</text>
+      <text x="899" y="672" class="serif row-title ink">Bounded evidence</text>
+      <text x="1096" y="650" class="sans row-copy soft">exact subject · boundary · status</text>
+      <text x="1096" y="674" class="mono row-copy muted">not_verified ≠ failed</text>
+      <path d="M899 698H1504" class="hairline"/>
+    </g>
+  </g>
+
+  <g id="contract-seam">
+    <rect x="711" y="455" width="178" height="142" fill="#eff5ef"/>
+    <path d="M711 455H889M711 597H889" class="hairline"/>
+    <text x="800" y="480" text-anchor="middle" class="mono green" font-size="10" letter-spacing="1.1">ONLY SHARED SEAM</text>
+    <text x="800" y="515" text-anchor="middle" class="mono ink" font-size="10.5">GUIDE 2.0.1 PIN</text>
+    <text x="800" y="538" text-anchor="middle" class="mono ink" font-size="10.5">SCENARIO CONTRACT</text>
+    <text x="800" y="561" text-anchor="middle" class="mono ink" font-size="10.5">RECEIPT GRAMMAR</text>
+    <text x="800" y="584" text-anchor="middle" class="sans muted" font-size="10">authority stays</text>
+  </g>
+
+  <g id="external-gates">
+    <text x="1504" y="727" text-anchor="end" class="mono muted" font-size="10.5" letter-spacing="1">SEPARATE EXTERNAL GATES / TUNNEL · NAMED HOST · OWNER</text>
+  </g>
+
+  <g id="boundary-rule">
+    <path d="M96 766H1504" class="hairline"/>
+    <text x="96" y="817" class="serif ink" font-size="27" font-weight="500">method authority ≠ execution authority</text>
+    <text x="899" y="801" class="sans soft" font-size="14">The Guide does not claim runtime observation.</text>
+    <text x="899" y="825" class="sans soft" font-size="14">The Lab does not rewrite method or profile authority.</text>
+    <text x="96" y="867" class="mono muted" font-size="10" letter-spacing="1.2">MCP APP PRODUCTION FIELD LAB / PUBLIC ARCHITECTURE</text>
+    <text x="1504" y="867" text-anchor="end" class="mono muted" font-size="10" letter-spacing="1.2">CC BY-NC-SA 4.0</text>
+  </g>
+</svg>

@@ -6,7 +6,11 @@
 
 MCP App Production Field Lab 的核心不是再造一套 framework，而是把 authority、execution surface 与 evidence ceiling 固定在同一张图里。Neutral specimen 足够真实，可以经过 MCP resource、App bridge、browser sandbox 与 package/runtime paths；又足够小，不会把 Refrain 产品逻辑搬进来。方法权威仍是 MCP Server Engineering Field Guide `2.0.1`。
 
+![Field Lab front door：projection boundaries 与 local receipt chain](architecture/field-lab-evidence-chain.zh-CN.svg)
+
 ## Authority topology
+
+![Field Guide 与 Field Lab 的 companion boundary](architecture/field-guide-field-lab.zh-CN.svg)
 
 ```mermaid
 flowchart LR
@@ -146,6 +150,8 @@ Package lane 有意晚于 source/process tests：
 `DOCS-REGISTER.json` 登记中文默认与 English mirror pairs、reciprocal switches 以及必须同步的 shared facts；`scripts/validate-docs.mjs` 只检查 structure 与 registered facts，不声称证明 prose 的 semantic equivalence。`LICENSE` 与 `LICENSE-DOCUMENTATION.md` 保持 governing singletons；`LICENSING.md` 是 governing English path map，中文版本只供阅读便利。
 
 `.github/workflows/verify.yml` 是 credential-free、read-only 的 public witness source。它可以重放 source/process、browser-host、clean-package 与 isolated-runtime lanes，但 workflow 文件存在不等于 remote run 已完成；在 GitHub Actions 真正执行前，remote CI execution 仍为 `not_verified`。
+
+`docs/architecture/` 中的两组 bilingual native SVG 是 README / architecture front doors。SVG 本身同时是 editable source 与 publication artifact；它们必须保持 self-contained，不得包含 script、`foreignObject`、external font / image / stylesheet 或 remote fetch。中英 siblings 共享 geometry、stable group IDs 与 boundary semantics，但各自拥有自然语言 copy。修改语义时必须同步两个 language files，并在 browser 的 1600×900 与 README-width 两种尺度实际检查；XML 合法不能替代 legibility review。
 
 ## Trust 与 side-effect boundaries
 

@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="lab-title lab-desc" lang="en">
+  <title id="lab-title">Projection and evidence chain for the MCP App Production Field Lab</title>
+  <desc id="lab-desc">The single deterministic inspect_boundary specimen projects different information to the model consumer, App view, and host bridge without merging those boundaries. Four local receipts cover process, browser, clean package, and isolated runtime. Tunnel, named host, and owner acceptance sit beyond an authorization break and require separate observations.</desc>
+  <defs>
+    <marker id="lab-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 10 5 0 10Z" fill="#78917c"/>
+    </marker>
+    <style>
+      .serif { font-family: "Iowan Old Style", "Songti SC", "STSong", "Noto Serif CJK SC", Georgia, serif; }
+      .sans { font-family: "Avenir Next", "PingFang SC", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+      .mono { font-family: "SFMono-Regular", "Noto Sans Mono CJK SC", Consolas, monospace; }
+      .ink { fill: #20241f; }
+      .soft { fill: #515a52; }
+      .muted { fill: #778078; }
+      .green { fill: #4f6955; }
+      .clay { fill: #966519; }
+      .micro { font-size: 11px; letter-spacing: 1.55px; }
+      .hairline { stroke: #dce5de; stroke-width: 1; vector-effect: non-scaling-stroke; }
+      .route { fill: none; stroke: #9dad9f; stroke-width: 1.25; vector-effect: non-scaling-stroke; }
+      .external { fill: none; stroke: #c5ad83; stroke-width: 1.25; stroke-dasharray: 5 6; vector-effect: non-scaling-stroke; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="900" fill="#fbfdfa"/>
+
+  <g id="heading">
+    <text x="96" y="62" class="mono micro green">FIELD LAB ARCHITECTURE / V-LAB-FRONT</text>
+    <text x="1504" y="62" text-anchor="end" class="mono micro muted">ONE SPECIMEN · EXACT BOUNDARIES</text>
+    <text x="96" y="132" class="serif ink" font-size="56" font-weight="500" letter-spacing="-1.7">One receipt proves one boundary.</text>
+    <text x="96" y="176" class="serif soft" font-size="19">The same MCP App specimen crosses different surfaces; each layer signs only what it observed.</text>
+    <path d="M96 212H1504" class="hairline"/>
+  </g>
+
+  <g id="neutral-specimen">
+    <text x="96" y="260" class="mono micro green">01 / NEUTRAL SPECIMEN</text>
+    <text x="96" y="310" class="mono ink" font-size="27">inspect_boundary</text>
+    <text x="96" y="346" class="mono muted" font-size="11.5">ui://mcp-app-production-fieldlab/</text>
+    <text x="96" y="368" class="mono muted" font-size="11.5">inspect-boundary/v1.html</text>
+    <path d="M96 397H416" class="hairline"/>
+
+    <text x="96" y="432" class="mono micro muted">SERVER</text>
+    <text x="220" y="432" class="sans soft" font-size="14">stateless · read-only</text>
+    <path d="M96 452H416" class="hairline"/>
+    <text x="96" y="487" class="mono micro muted">RESOURCE</text>
+    <text x="220" y="487" class="sans soft" font-size="14">versioned · self-contained</text>
+    <path d="M96 507H416" class="hairline"/>
+    <text x="96" y="542" class="mono micro muted">NETWORK</text>
+    <text x="220" y="542" class="sans soft" font-size="14">zero external fetch</text>
+    <path d="M96 562H416" class="hairline"/>
+    <text x="96" y="594" class="serif green" font-size="16">one deterministic invocation</text>
+    <circle cx="416" cy="480" r="5" fill="#4f6955"/>
+  </g>
+
+  <g id="projection-boundaries">
+    <text x="520" y="260" class="mono micro green">02 / PROJECTION BOUNDARIES</text>
+
+    <path d="M421 480C458 480 471 326 520 326" class="route" marker-end="url(#lab-arrow)"/>
+    <path d="M421 480H520" class="route" marker-end="url(#lab-arrow)"/>
+    <path d="M421 480C458 480 471 554 520 554" class="route" marker-end="url(#lab-arrow)"/>
+
+    <g id="model-projection">
+      <text x="520" y="310" class="mono micro muted">MODEL CONSUMER</text>
+      <text x="520" y="345" class="serif ink" font-size="22">text + structuredContent</text>
+      <text x="930" y="345" class="sans soft" font-size="14">model-readable result</text>
+      <text x="1504" y="345" text-anchor="end" class="sans muted" font-size="13">component-only <tspan class="mono">_meta</tspan> stays out</text>
+      <path d="M520 369H1504" class="hairline"/>
+    </g>
+
+    <g id="component-projection">
+      <text x="520" y="424" class="mono micro muted">APP VIEW</text>
+      <text x="520" y="459" class="serif ink" font-size="22">exact ui:// bytes + shared data + _meta</text>
+      <text x="1092" y="459" class="sans soft" font-size="14">mounted in sandbox</text>
+      <text x="1504" y="459" text-anchor="end" class="sans muted" font-size="13">selection stays view-local</text>
+      <path d="M520 483H1504" class="hairline"/>
+    </g>
+
+    <g id="host-projection">
+      <text x="520" y="538" class="mono micro muted">HOST BRIDGE</text>
+      <text x="520" y="573" class="serif ink" font-size="22">capability → user gesture → disposition</text>
+      <text x="1092" y="573" class="sans soft" font-size="14">observable return</text>
+      <text x="1504" y="573" text-anchor="end" class="sans muted" font-size="13">never promoted to owner acceptance</text>
+      <path d="M520 597H1504" class="hairline"/>
+    </g>
+  </g>
+
+  <g id="local-receipt-chain">
+    <text x="96" y="646" class="mono micro green">03 / LOCAL RECEIPT CHAIN</text>
+    <text x="1504" y="646" text-anchor="end" class="mono micro clay">SEPARATELY AUTHORIZED BEYOND THE BREAK</text>
+
+    <path d="M132 695H1000" class="route" marker-end="url(#lab-arrow)"/>
+    <path d="M1130 695H1480" class="external"/>
+    <g fill="#4f6955">
+      <circle cx="210" cy="695" r="5"/>
+      <circle cx="470" cy="695" r="5"/>
+      <circle cx="730" cy="695" r="5"/>
+      <circle cx="990" cy="695" r="5"/>
+    </g>
+    <g fill="#fbfdfa" stroke="#b79356" stroke-width="1.4">
+      <circle cx="1170" cy="695" r="5"/>
+      <circle cx="1330" cy="695" r="5"/>
+      <circle cx="1470" cy="695" r="5"/>
+    </g>
+
+    <g class="mono ink" font-size="12" letter-spacing=".8" text-anchor="middle">
+      <text x="210" y="680">PROCESS</text>
+      <text x="470" y="680">BROWSER</text>
+      <text x="730" y="680">PACKAGE</text>
+      <text x="990" y="680">RUNTIME</text>
+    </g>
+    <g class="sans muted" font-size="12.5" text-anchor="middle">
+      <text x="210" y="727">resource roundtrip</text>
+      <text x="470" y="727">declared profiles</text>
+      <text x="730" y="727">clean revision</text>
+      <text x="970" y="727">identity readback</text>
+    </g>
+    <g class="mono clay" font-size="10" letter-spacing=".7" text-anchor="middle">
+      <text x="1170" y="680">TUNNEL</text>
+      <text x="1330" y="680">NAMED HOST</text>
+      <text x="1470" y="680">OWNER</text>
+    </g>
+    <text x="1060" y="701" text-anchor="middle" class="mono clay" font-size="18">∥</text>
+    <text x="1082" y="745" text-anchor="middle" class="mono clay" font-size="8.5" letter-spacing=".7">AUTHORIZATION BREAK</text>
+  </g>
+
+  <g id="claim-rule">
+    <path d="M96 778H1504" class="hairline"/>
+    <text x="96" y="825" class="serif ink" font-size="24">Exact identities may join; claims do not auto-upgrade.</text>
+    <text x="1504" y="818" text-anchor="end" class="mono muted" font-size="10.5" letter-spacing=".8">SOURCE REVISION · RESOURCE BYTES · BUNDLE DIGEST · RUNTIME IDENTITY</text>
+    <text x="96" y="868" class="mono muted" font-size="10" letter-spacing="1.2">MCP APP PRODUCTION FIELD LAB / PUBLIC ARCHITECTURE</text>
+    <text x="1504" y="868" text-anchor="end" class="mono muted" font-size="10" letter-spacing="1.2">CC BY-NC-SA 4.0</text>
+  </g>
+</svg>

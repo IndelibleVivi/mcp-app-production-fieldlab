@@ -8,6 +8,8 @@ MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的�
 
 当前状态是 **`public-source` / source-available / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release 或 registry publication。Project-original functional materials 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`。这不是 OSI open source。`package.json` 保持 `private: true`，用于阻止误发 npm。仓库里的 tunnel、named-host 与 owner scenarios 是 operator runbooks 和 evidence contracts，不代表这些外部步骤已经运行。
 
+![Field Lab：一个 neutral specimen、三类 projection boundary 与四份 local receipt](docs/architecture/field-lab-evidence-chain.zh-CN.svg)
+
 ## 为什么单独成 repo
 
 现有 Field Guide 与这个 Field Lab 解决不同问题：
@@ -20,6 +22,8 @@ MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的�
 | [Refrain](https://github.com/IndelibleVivi/refrain)（private source authority；link 需要访问权限）                | founding case 的 product source、renderer、deployment、runtime 与 owner truth                                                     |
 
 版本连接只通过 [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json) 单向固定：Field Guide release `2.0.1` 固定到 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`。Field Lab 不复制 Field Guide profiles，不创建第二个通用 skill，也不把 Refrain 变成 runtime dependency。Field Guide 会保持不变，直到真正的 public Field Lab release 存在，再决定是否加入 companion discoverability link。
+
+![Field Guide 与 Field Lab：两座仓库只通过 version pin、scenario contract 与 receipt grammar 对接](docs/architecture/field-guide-field-lab.zh-CN.svg)
 
 ## Specimen contract
 
@@ -87,6 +91,7 @@ npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-review
 | [`SPEC.md`](SPEC.md)                                           | programme contract、non-goals 与 acceptance boundaries                                  |
 | [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json)             | Field Guide version pin、selected profiles、founding provenance 与 publication state    |
 | [`DOCS-REGISTER.json`](DOCS-REGISTER.json)                     | 中文/English pairs、registered shared facts 与 current-state sync contract              |
+| [`docs/architecture/`](docs/architecture)                      | Bilingual native-SVG front doors：Lab evidence chain 与 Guide/Lab companion boundary    |
 | [`LICENSING.md`](LICENSING.md)                                 | governing functional/docs path map、private-source 与 third-party exclusions            |
 | [`src/`](src)                                                  | neutral server、exact resource contract、view 与 evidence policy/schema                 |
 | [`host-harness/`](host-harness)                                | declared local profiles 与 observable ledger；不模拟 named host                         |
