@@ -1,0 +1,27 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "named-host.acceptance",
+  "revision": "1",
+  "boundary": "named-host-acceptance",
+  "claim": "One explicitly named authenticated host freshly discovers the selected MCP runtime, admits the exact App resource and exercises the declared capability outcomes.",
+  "observable_input": [
+    "exact named host and account context",
+    "selected source, package and activated-runtime identities",
+    "fresh host task or conversation"
+  ],
+  "expected_observation": [
+    "the host discovers the intended tool and exact resource",
+    "the exact App resource is mounted rather than a stale cache projection",
+    "declared host capabilities produce observed success or negative dispositions",
+    "the receipt records host, date, identities and evidence ceiling without private raw material"
+  ],
+  "exercise_surface": "named-host",
+  "proof_ceiling": "named-host",
+  "authorization_class": "external-side-effect",
+  "runner": null,
+  "prerequisite_receipts": ["tunnel.configured-target-authority@1"],
+  "not_proven": [
+    "other hosts or future host behavior",
+    "owner visual or interaction acceptance"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "noEmit": true,
+    "incremental": false,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    "src",
+    "tests",
+    "host-harness",
+    "playwright.config.ts",
+    "vite.config.ts",
+    ".skybridge/**/*.d.ts"
+  ]
+}

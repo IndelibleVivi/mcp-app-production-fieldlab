@@ -1,0 +1,7 @@
+{
+  "extends": "skybridge/tsconfig",
+  "compilerOptions": {
+    "types": ["node"]
+  },
+  "include": ["src", ".skybridge/**/*.d.ts"]
+}

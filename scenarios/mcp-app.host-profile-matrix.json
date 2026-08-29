@@ -1,0 +1,31 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "mcp-app.host-profile-matrix",
+  "revision": "1",
+  "boundary": "optional-host-capability",
+  "claim": "The exact production App resource preserves a portable fallback and exposes optional actions only for the capability envelope declared by a local host profile.",
+  "observable_input": [
+    "fresh production MCP tool result and resource bytes",
+    "restricted host profile",
+    "capability-enabled host profile",
+    "capability-rejected host profile"
+  ],
+  "expected_observation": [
+    "the iframe mounts through the MCP App bridge",
+    "restricted profile hides unsupported actions and preserves the portable handoff",
+    "enabled profile exposes user-initiated message and download actions",
+    "rejected invocation is recorded separately from capability absence",
+    "no undeclared external network request occurs"
+  ],
+  "exercise_surface": "local-browser-harness",
+  "proof_ceiling": "process",
+  "authorization_class": "ordinary-local",
+  "runner": "npm run test:host",
+  "prerequisite_receipts": ["mcp-app.resource-roundtrip@1"],
+  "not_proven": [
+    "ChatGPT policy or cache behavior",
+    "Secure MCP Tunnel reachability",
+    "named-host capability behavior",
+    "owner acceptance"
+  ]
+}

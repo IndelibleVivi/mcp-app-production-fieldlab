@@ -1,0 +1,129 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://fieldlab.invalid/schemas/scenario@1",
+  "type": "object",
+  "properties": {
+    "format": {
+      "type": "string",
+      "const": "mcp-app-fieldlab-scenario@1"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9.-]+$"
+    },
+    "revision": {
+      "type": "string",
+      "pattern": "^[1-9][0-9]*$"
+    },
+    "boundary": {
+      "type": "string",
+      "enum": [
+        "transport-route",
+        "resource-admission",
+        "asset-plane",
+        "host-bridge-envelope",
+        "iframe-sandbox-policy",
+        "optional-host-capability",
+        "artifact-runtime-identity",
+        "tunnel-target",
+        "named-host-acceptance",
+        "owner-interaction"
+      ]
+    },
+    "claim": {
+      "type": "string",
+      "minLength": 1
+    },
+    "observable_input": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "expected_observation": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "exercise_surface": {
+      "type": "string",
+      "enum": [
+        "source-inspection",
+        "local-process",
+        "built-artifact",
+        "local-browser-harness",
+        "clean-package",
+        "isolated-runtime",
+        "activated-runtime",
+        "named-host",
+        "owner"
+      ]
+    },
+    "proof_ceiling": {
+      "type": "string",
+      "enum": [
+        "source",
+        "process",
+        "artifact",
+        "activated-runtime",
+        "named-host",
+        "owner"
+      ]
+    },
+    "authorization_class": {
+      "type": "string",
+      "enum": [
+        "ordinary-local",
+        "operator-local",
+        "external-side-effect",
+        "owner-only"
+      ]
+    },
+    "runner": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "prerequisite_receipts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "not_proven": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "required": [
+    "format",
+    "id",
+    "revision",
+    "boundary",
+    "claim",
+    "observable_input",
+    "expected_observation",
+    "exercise_surface",
+    "proof_ceiling",
+    "authorization_class",
+    "runner",
+    "prerequisite_receipts",
+    "not_proven"
+  ],
+  "additionalProperties": false
+}

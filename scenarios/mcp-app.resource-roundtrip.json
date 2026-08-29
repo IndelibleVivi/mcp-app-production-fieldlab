@@ -1,0 +1,30 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "mcp-app.resource-roundtrip",
+  "revision": "1",
+  "boundary": "resource-admission",
+  "claim": "A fresh production MCP process exposes one exact versioned App resource and returns its self-contained bytes through the MCP resource-read path.",
+  "observable_input": [
+    "production build output",
+    "fresh loopback MCP session",
+    "inspect_boundary tool invocation"
+  ],
+  "expected_observation": [
+    "tools/list contains exactly inspect_boundary",
+    "resources/list contains the exact versioned ui resource",
+    "resources/read returns the declared MIME type and self-contained HTML bytes",
+    "component-only metadata is absent from model-visible structured content"
+  ],
+  "exercise_surface": "local-process",
+  "proof_ceiling": "process",
+  "authorization_class": "ordinary-local",
+  "runner": "npm run test:mcp",
+  "prerequisite_receipts": [],
+  "not_proven": [
+    "clean package identity",
+    "activated production runtime",
+    "Secure MCP Tunnel reachability",
+    "named-host admission",
+    "owner acceptance"
+  ]
+}

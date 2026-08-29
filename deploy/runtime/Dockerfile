@@ -1,0 +1,17 @@
+FROM node:22.23.1-bookworm-slim
+
+ENV NODE_ENV=production \
+    __PORT=8787
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev && npm cache clean --force
+
+COPY dist ./dist
+COPY release.json ./release.json
+
+USER node
+EXPOSE 8787
+
+CMD ["node", "dist/__entry.js"]

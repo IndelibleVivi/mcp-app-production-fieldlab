@@ -1,0 +1,27 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "owner.acceptance",
+  "revision": "1",
+  "boundary": "owner-interaction",
+  "claim": "The product owner observes the exact named-host App interaction and deliberately accepts the required behavior for the stated revision.",
+  "observable_input": [
+    "fresh named-host receipt",
+    "exact owner acceptance contract",
+    "owner-observed interaction"
+  ],
+  "expected_observation": [
+    "the owner identifies the exact revision and host surface",
+    "required interactions are observed rather than inferred from automation",
+    "acceptance or rejection is recorded deliberately",
+    "private acceptance material remains outside Git unless separately sanitized"
+  ],
+  "exercise_surface": "owner",
+  "proof_ceiling": "owner",
+  "authorization_class": "owner-only",
+  "runner": null,
+  "prerequisite_receipts": ["named-host.acceptance@1"],
+  "not_proven": [
+    "behavior of a later source revision",
+    "behavior of another named host"
+  ]
+}

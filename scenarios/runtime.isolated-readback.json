@@ -1,0 +1,30 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "runtime.isolated-readback",
+  "revision": "1",
+  "boundary": "artifact-runtime-identity",
+  "claim": "An isolated process started from one clean runtime candidate reports the same release identity and reproduces the MCP tool/resource contract.",
+  "observable_input": [
+    "exact runtime candidate path",
+    "fresh temporary install projection",
+    "unused loopback port"
+  ],
+  "expected_observation": [
+    "healthz returns the candidate source revision, bundle digest and file count",
+    "fresh MCP initialize and discovery succeed",
+    "tool call and exact resource readback reproduce",
+    "the candidate process is stopped without altering any selected live runtime"
+  ],
+  "exercise_surface": "isolated-runtime",
+  "proof_ceiling": "activated-runtime",
+  "authorization_class": "ordinary-local",
+  "runner": "npm run smoke:runtime -- --candidate=runtime-candidates/fieldlab-v0.1.0",
+  "prerequisite_receipts": ["package.clean-revision@1"],
+  "not_proven": [
+    "installation into an operator service",
+    "production runtime selection",
+    "Secure MCP Tunnel reachability",
+    "named-host admission",
+    "owner acceptance"
+  ]
+}

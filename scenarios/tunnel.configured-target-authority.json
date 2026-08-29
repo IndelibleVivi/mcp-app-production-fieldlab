@@ -1,0 +1,29 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "tunnel.configured-target-authority",
+  "revision": "1",
+  "boundary": "tunnel-target",
+  "claim": "An operator-owned tunnel preflight derives one exact loopback MCP target from the same credential-bearing configuration used by the tunnel process and confirms same-origin release identity.",
+  "observable_input": [
+    "operator-selected immutable runtime identity",
+    "credential-bearing tunnel profile outside Git",
+    "configured loopback MCP target"
+  ],
+  "expected_observation": [
+    "only the configured loopback target and exact MCP path are admitted",
+    "route status is protocol-compatible rather than a generic 404",
+    "same-origin health identity matches the operator-selected candidate",
+    "no alternate port or environment variable silently overrides target authority"
+  ],
+  "exercise_surface": "activated-runtime",
+  "proof_ceiling": "activated-runtime",
+  "authorization_class": "external-side-effect",
+  "runner": null,
+  "prerequisite_receipts": ["runtime.isolated-readback@1"],
+  "not_proven": [
+    "tunnel process activation",
+    "named-host discovery",
+    "named-host App admission",
+    "owner acceptance"
+  ]
+}

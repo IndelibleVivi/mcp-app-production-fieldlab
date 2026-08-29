@@ -1,0 +1,7 @@
+dist/
+node_modules/
+tmp/
+runtime-candidates/
+test-results/
+playwright-report/
+package-lock.json

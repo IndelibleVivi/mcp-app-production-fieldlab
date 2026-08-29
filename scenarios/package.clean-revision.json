@@ -1,0 +1,33 @@
+{
+  "format": "mcp-app-fieldlab-scenario@1",
+  "id": "package.clean-revision",
+  "revision": "1",
+  "boundary": "artifact-runtime-identity",
+  "claim": "A runtime candidate is built from one clean committed revision and records a deterministic manifest over every packaged runtime file.",
+  "observable_input": [
+    "clean committed Git revision",
+    "pinned package lock",
+    "new ignored output path"
+  ],
+  "expected_observation": [
+    "dirty source and pre-existing output paths are refused",
+    "the build runs inside a detached clean worktree",
+    "release.json records source revision, sorted file identities and one bundle digest",
+    "candidate adoption is atomic"
+  ],
+  "exercise_surface": "clean-package",
+  "proof_ceiling": "artifact",
+  "authorization_class": "ordinary-local",
+  "runner": "npm run package:runtime -- --out=runtime-candidates/fieldlab-v0.1.0",
+  "prerequisite_receipts": [
+    "mcp-app.resource-roundtrip@1",
+    "mcp-app.host-profile-matrix@1"
+  ],
+  "not_proven": [
+    "container image construction",
+    "candidate process execution",
+    "production activation",
+    "named-host admission",
+    "owner acceptance"
+  ]
+}

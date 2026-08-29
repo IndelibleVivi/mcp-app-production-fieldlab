@@ -1,0 +1,12 @@
+node_modules/
+dist/
+tmp/
+runtime-candidates/
+test-results/
+playwright-report/
+.skybridge/
+.vercel/
+.env*
+!.env.example
+*.tsbuildinfo
+.DS_Store

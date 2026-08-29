@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "fieldlab_version": "0.1.0-private.0",
+  "recorded_at": "2026-08-29",
+  "scenario_schema_version": 1,
+  "receipt_schema_version": 1,
+  "method_authority": {
+    "repository": "https://github.com/IndelibleVivi/mcp-server-engineering-field-guide",
+    "guide_release": "2.0.1",
+    "git_commit": "dcb2c61a060948f92d35918af43919bdfde8b01a",
+    "skill_version": "0.1.0",
+    "profile_set_version": 1
+  },
+  "selected_profiles": [
+    {
+      "id": "json-rpc-2.0",
+      "status": "normative",
+      "guide_assessed_at": "2026-08-15"
+    },
+    {
+      "id": "http-rfc9110-rfc9112",
+      "status": "normative",
+      "guide_assessed_at": "2026-08-15"
+    },
+    {
+      "id": "mcp-2026-07-28",
+      "status": "current-as-assessed",
+      "guide_assessed_at": "2026-08-15"
+    },
+    {
+      "id": "mcp-apps-and-openai-hosts-2026-08-15",
+      "status": "moving-guidance",
+      "guide_assessed_at": "2026-08-15"
+    }
+  ],
+  "founding_observation": {
+    "repository": "https://github.com/IndelibleVivi/refrain",
+    "reviewed_commit": "3e25c4b61eacaad502b4942e285855a7c38871ca",
+    "role": "pinned provenance for neutral mechanism extraction; not copied runtime authority"
+  },
+  "authority_boundary": {
+    "owns": [
+      "neutral MCP App specimen source",
+      "declared host profile harness",
+      "execution scenario definitions",
+      "package and bounded runtime observations",
+      "domain-specific evidence receipt schema"
+    ],
+    "does_not_own": [
+      "MCP normative interpretation",
+      "general repository debugging or verification workflow",
+      "named-host behavior beyond an exact recorded execution",
+      "Refrain product or runtime truth",
+      "owner acceptance"
+    ]
+  },
+  "publication": {
+    "state": "local-private",
+    "remote_configured": false,
+    "license_selected": false
+  }
+}
