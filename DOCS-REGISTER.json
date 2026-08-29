@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "validator_scope": "structural-and-registered-shared-facts-only",
+  "canonical_locale": "zh-CN",
+  "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+  "signature": "Created by Faye & Cove.",
+  "method_authority": {
+    "guide_release": "2.0.1",
+    "git_commit": "dcb2c61a060948f92d35918af43919bdfde8b01a"
+  },
+  "founding_observation": {
+    "reviewed_commit": "3e25c4b61eacaad502b4942e285855a7c38871ca"
+  },
+  "publication": {
+    "state": "public-source",
+    "github_release": false,
+    "package_publication": false,
+    "functional_license": "SUL-1.0",
+    "documentation_license": "CC-BY-NC-SA-4.0"
+  },
+  "governing_singletons": ["LICENSE", "LICENSE-DOCUMENTATION.md"],
+  "pairs": [
+    {
+      "id": "readme",
+      "zh_cn": "README.md",
+      "en": "README.en.md"
+    },
+    {
+      "id": "spec",
+      "zh_cn": "SPEC.md",
+      "en": "SPEC.en.md"
+    },
+    {
+      "id": "architecture",
+      "zh_cn": "docs/ARCHITECTURE.md",
+      "en": "docs/ARCHITECTURE.en.md"
+    },
+    {
+      "id": "testing",
+      "zh_cn": "docs/TESTING.md",
+      "en": "docs/TESTING.en.md"
+    },
+    {
+      "id": "current-state",
+      "zh_cn": "docs/current-state.md",
+      "en": "docs/current-state.en.md"
+    },
+    {
+      "id": "package-loopback-runbook",
+      "zh_cn": "docs/runbooks/package-and-loopback.md",
+      "en": "docs/runbooks/package-and-loopback.en.md"
+    },
+    {
+      "id": "tunnel-named-host-runbook",
+      "zh_cn": "docs/runbooks/tunnel-and-named-host.md",
+      "en": "docs/runbooks/tunnel-and-named-host.en.md"
+    },
+    {
+      "id": "refrain-case-study",
+      "zh_cn": "case-studies/refrain/CASE-STUDY.md",
+      "en": "case-studies/refrain/CASE-STUDY.en.md"
+    },
+    {
+      "id": "refrain-provenance",
+      "zh_cn": "case-studies/refrain/PROVENANCE.md",
+      "en": "case-studies/refrain/PROVENANCE.en.md"
+    },
+    {
+      "id": "licensing-map",
+      "zh_cn": "LICENSING.zh-CN.md",
+      "en": "LICENSING.md",
+      "governing_locale": "en"
+    }
+  ],
+  "shared_facts": [
+    {
+      "id": "repository",
+      "value": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+      "pair_ids": ["readme", "spec", "current-state", "licensing-map"]
+    },
+    {
+      "id": "method-release",
+      "value": "2.0.1",
+      "pair_ids": ["readme", "spec", "architecture", "current-state"]
+    },
+    {
+      "id": "method-commit",
+      "value": "dcb2c61a060948f92d35918af43919bdfde8b01a",
+      "pair_ids": ["readme", "spec", "current-state"]
+    },
+    {
+      "id": "founding-commit",
+      "value": "3e25c4b61eacaad502b4942e285855a7c38871ca",
+      "pair_ids": [
+        "spec",
+        "current-state",
+        "refrain-case-study",
+        "refrain-provenance"
+      ]
+    },
+    {
+      "id": "publication-state",
+      "value": "public-source",
+      "pair_ids": ["readme", "spec", "current-state", "licensing-map"]
+    },
+    {
+      "id": "functional-license",
+      "value": "SUL-1.0",
+      "pair_ids": [
+        "readme",
+        "spec",
+        "current-state",
+        "refrain-provenance",
+        "licensing-map"
+      ]
+    },
+    {
+      "id": "documentation-license",
+      "value": "CC-BY-NC-SA-4.0",
+      "pair_ids": [
+        "readme",
+        "spec",
+        "current-state",
+        "refrain-provenance",
+        "licensing-map"
+      ]
+    }
+  ],
+  "current_state": {
+    "updated_at": "2026-08-29",
+    "candidate_source_revision": "dbab424196d4acd1eae1b73f7f26d7e0a9a43889",
+    "candidate_file_count": 30,
+    "resource_bytes": 550779,
+    "resource_sha256": "7638ebdc38857bc980a43a5740c7a49c29a61ddd12207c7baf2816491daa73b3",
+    "bundle_digest": "sha256:228458dbb93a818f53cda77dc414cfa705a5df028902ed0c0790194e3c082c56",
+    "receipt_path": "tmp/receipts/runtime.isolated-readback@1.json",
+    "check_schema_count": 2,
+    "check_scenario_count": 7,
+    "check_unit_tests": 10,
+    "remote_ci_execution": "not_verified",
+    "boundary_statuses": [
+      { "id": "source-checks", "status": "verified" },
+      { "id": "resource-roundtrip", "status": "verified" },
+      { "id": "local-host-matrix", "status": "verified" },
+      { "id": "clean-runtime-candidate", "status": "verified" },
+      { "id": "isolated-runtime-readback", "status": "verified" },
+      { "id": "remote-ci-execution", "status": "not_verified" },
+      { "id": "operator-production-runtime", "status": "not_verified" },
+      { "id": "tunnel", "status": "not_verified" },
+      { "id": "named-host", "status": "not_verified" },
+      { "id": "owner-acceptance", "status": "not_verified" },
+      { "id": "release-publication", "status": "not_verified" }
+    ]
+  }
+}

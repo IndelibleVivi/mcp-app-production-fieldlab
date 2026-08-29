@@ -308,7 +308,7 @@ function assertHealth(health, release) {
   return expectedIdentity;
 }
 
-async function verifyMcp(origin, release) {
+async function verifyMcp(origin, release, expectedServerVersion) {
   const client = new Client(
     { name: "fieldlab-isolated-runtime-smoke", version: "1" },
     { capabilities: { extensions: { "io.modelcontextprotocol/ui": {} } } },
@@ -319,6 +319,15 @@ async function verifyMcp(origin, release) {
       new StreamableHTTPClientTransport(new URL(`${origin}/mcp`)),
     );
     connected = true;
+    const serverVersion = client.getServerVersion();
+    if (
+      serverVersion?.name !== "MCP App Production Field Lab" ||
+      serverVersion.version !== expectedServerVersion
+    ) {
+      fail(
+        "Initialize did not expose the exact package-authoritative MCP server version.",
+      );
+    }
     const tools = await client.listTools();
     if (
       tools.tools.length !== 1 ||
@@ -435,6 +444,7 @@ async function verifyMcp(origin, release) {
         sha256: sha256(Buffer.from(resourceContent.text, "utf8")),
       },
       componentOnlyProjection: "preserved",
+      serverVersion: serverVersion.version,
     };
   } finally {
     if (connected) await client.close();
@@ -467,6 +477,7 @@ function makeReceipt(release, identity, observations) {
       tool_count: observations.toolCount,
       resource_count: observations.resourceCount,
       component_only_projection: observations.componentOnlyProjection,
+      mcp_server_version: observations.serverVersion,
     },
     evidence_refs: [
       "candidate:release.json",
@@ -475,6 +486,7 @@ function makeReceipt(release, identity, observations) {
       "runtime:MCP resources/list",
       "runtime:MCP resources/read",
       "runtime:MCP tools/call",
+      `resource:sha256:${observations.resource.sha256}`,
     ],
     limitations: [
       "The runtime was activated only as a disposable local Node process.",
@@ -484,8 +496,8 @@ function makeReceipt(release, identity, observations) {
       "container activation",
       "installation into an operator service",
       "production runtime selection",
-      "Secure MCP Tunnel target authority",
-      "named-host behavior",
+      "Secure MCP Tunnel reachability",
+      "named-host admission",
       "owner acceptance",
     ],
   };
@@ -507,6 +519,22 @@ function writeReceipt(repositoryRoot, receipt) {
   return receiptPath;
 }
 
+function readPrerequisiteReceiptChain(repositoryRoot) {
+  return [
+    "mcp-resource-roundtrip.json",
+    "mcp-host-profile-matrix.json",
+    "package.clean-revision@1.json",
+  ].map((file) => {
+    const receiptPath = path.join(repositoryRoot, "tmp", "receipts", file);
+    if (!existsSync(receiptPath)) {
+      fail(
+        `Missing prerequisite receipt ${path.relative(repositoryRoot, receiptPath)}; run npm run check, npm run test:host, and package the clean revision before isolated smoke.`,
+      );
+    }
+    return JSON.parse(readFileSync(receiptPath, "utf8"));
+  });
+}
+
 export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
   const { candidate: candidateArgument } = parseArguments(arguments_);
   const repositoryRoot = path.resolve(
@@ -518,11 +546,22 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
     fail(`--candidate must name an existing directory: ${candidateRoot}`);
   }
   const release = parseAndVerifyRelease(candidateRoot);
+  const candidatePackage = JSON.parse(
+    readFileSync(path.join(candidateRoot, "package.json"), "utf8"),
+  );
+  if (
+    typeof candidatePackage.version !== "string" ||
+    candidatePackage.version.length === 0 ||
+    candidatePackage.version.trim() !== candidatePackage.version
+  ) {
+    fail("Candidate package.json has no exact package version.");
+  }
   const runtimeRoot = mkdtempSync(
     path.join(tmpdir(), "mcp-app-fieldlab-runtime-smoke-"),
   );
   let child;
   let clientObservations;
+  let validatedRuntimeReceipt;
   const stdout = [];
   const stderr = [];
   try {
@@ -553,32 +592,53 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
 
     const { body: health } = await waitForHealth(`${origin}/healthz`, child);
     const identity = assertHealth(health, release);
-    clientObservations = await verifyMcp(origin, release);
+    clientObservations = await verifyMcp(
+      origin,
+      release,
+      candidatePackage.version,
+    );
 
     const candidateReceiptModule = await import(
       pathToFileURL(path.join(runtimeRoot, "dist", "evidence", "receipt.js"))
         .href
     );
-    const receipt = makeReceipt(release, identity, clientObservations);
-    const validatedReceipt = candidateReceiptModule.parseReceipt(receipt);
-    const receiptPath = writeReceipt(repositoryRoot, validatedReceipt);
-
-    process.stdout.write(
-      `${JSON.stringify(
-        {
-          candidate: candidateRoot,
-          sourceRevision: release.sourceRevision,
-          bundleDigest: release.bundleDigest,
-          resourceSha256: clientObservations.resource.sha256,
-          receipt: path.relative(repositoryRoot, receiptPath),
-          scenario: "runtime.isolated-readback@1",
-          proofCeiling: "activated-runtime",
-          notProven: receipt.not_proven,
-        },
-        null,
-        2,
-      )}\n`,
+    const candidateScenarioModule = await import(
+      pathToFileURL(path.join(runtimeRoot, "dist", "evidence", "scenario.js"))
+        .href
     );
+    const scenarioRoot = path.join(runtimeRoot, "scenarios");
+    const scenarioValues = readdirSync(scenarioRoot)
+      .filter((file) => file.endsWith(".json"))
+      .sort(comparePaths)
+      .map((file) =>
+        JSON.parse(readFileSync(path.join(scenarioRoot, file), "utf8")),
+      );
+    const scenarios =
+      candidateScenarioModule.validateScenarioSet(scenarioValues);
+    const scenario = scenarios.find(
+      (value) =>
+        value.id === "runtime.isolated-readback" && value.revision === "1",
+    );
+    if (!scenario) {
+      fail(
+        "Candidate scenario closure is missing runtime.isolated-readback@1.",
+      );
+    }
+    const receipt = makeReceipt(release, identity, clientObservations);
+    const validatedReceipts =
+      candidateReceiptModule.validateReceiptSetAgainstScenarios(
+        [...readPrerequisiteReceiptChain(repositoryRoot), receipt],
+        scenarioValues,
+      );
+    const validatedReceipt = validatedReceipts.find(
+      (value) =>
+        value.scenario.id === "runtime.isolated-readback" &&
+        value.scenario.revision === "1",
+    );
+    if (!validatedReceipt) {
+      fail("Receipt-set validation returned no runtime.isolated-readback@1.");
+    }
+    validatedRuntimeReceipt = validatedReceipt;
   } catch (error) {
     const processOutput = `${stdout.join("")}${stderr.join("")}`.trim();
     if (processOutput !== "") {
@@ -591,6 +651,28 @@ export async function runtimeSmoke(arguments_ = process.argv.slice(2)) {
     await stopChild(child);
     rmSync(runtimeRoot, { recursive: true, force: true });
   }
+
+  if (!validatedRuntimeReceipt || !clientObservations) {
+    fail("Isolated runtime completed without one validated receipt.");
+  }
+  const receiptPath = writeReceipt(repositoryRoot, validatedRuntimeReceipt);
+  process.stdout.write(
+    `${JSON.stringify(
+      {
+        candidate: candidateRoot,
+        sourceRevision: release.sourceRevision,
+        bundleDigest: release.bundleDigest,
+        resourceSha256: clientObservations.resource.sha256,
+        serverVersion: clientObservations.serverVersion,
+        receipt: path.relative(repositoryRoot, receiptPath),
+        scenario: "runtime.isolated-readback@1",
+        proofCeiling: "activated-runtime",
+        notProven: validatedRuntimeReceipt.not_proven,
+      },
+      null,
+      2,
+    )}\n`,
+  );
 }
 
 const isMain =

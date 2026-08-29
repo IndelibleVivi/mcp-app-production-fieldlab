@@ -13,7 +13,7 @@ import {
 } from "node:fs";
 import { tmpdir } from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { spawnSync } from "node:child_process";
 
 const FORMAT = "mcp-app-fieldlab-runtime@1";
@@ -21,11 +21,16 @@ const SHA256_PATTERN = /^[a-f0-9]{64}$/;
 const REVISION_PATTERN = /^[a-f0-9]{40}$/;
 export const RUNTIME_ROOTS = [
   "dist",
+  "scenarios",
   "package.json",
   "package-lock.json",
   "LICENSE",
   "LICENSE-DOCUMENTATION.md",
   "LICENSING.md",
+];
+export const CLEAN_WORKTREE_VALIDATION_SCRIPTS = [
+  "validate:schemas",
+  "validate:scenarios",
 ];
 
 function fail(message) {
@@ -253,7 +258,117 @@ export function assertNoTrackedInstallProjection(worktreeRoot) {
   }
 }
 
-export function packageRuntime(arguments_ = process.argv.slice(2)) {
+function readRequiredPrerequisiteReceipt(repositoryRoot, file, revision) {
+  const receiptPath = path.join(repositoryRoot, "tmp", "receipts", file);
+  if (!existsSync(receiptPath)) {
+    fail(
+      `Missing prerequisite receipt ${path.relative(repositoryRoot, receiptPath)}; run npm run check and npm run test:host on the clean revision before packaging.`,
+    );
+  }
+  const receipt = JSON.parse(readFileSync(receiptPath, "utf8"));
+  if (
+    receipt?.subject?.source_revision !== revision ||
+    receipt?.subject?.source_dirty !== false
+  ) {
+    fail(
+      `Prerequisite receipt ${file} is not bound to clean revision ${revision}.`,
+    );
+  }
+  return receipt;
+}
+
+async function preparePackageReceipt(repositoryRoot, stagingRoot, manifest) {
+  const scenarioModule = await import(
+    pathToFileURL(path.join(stagingRoot, "dist", "evidence", "scenario.js"))
+      .href
+  );
+  const receiptModule = await import(
+    pathToFileURL(path.join(stagingRoot, "dist", "evidence", "receipt.js")).href
+  );
+  const scenarioRoot = path.join(stagingRoot, "scenarios");
+  const scenarioValues = readdirSync(scenarioRoot)
+    .filter((file) => file.endsWith(".json"))
+    .sort(comparePaths)
+    .map((file) =>
+      JSON.parse(readFileSync(path.join(scenarioRoot, file), "utf8")),
+    );
+  const scenarios = scenarioModule.validateScenarioSet(scenarioValues);
+  const packageScenario = scenarios.find(
+    (scenario) =>
+      scenario.id === "package.clean-revision" && scenario.revision === "1",
+  );
+  if (!packageScenario) {
+    fail("Candidate scenario closure is missing package.clean-revision@1.");
+  }
+
+  const prerequisiteReceipts = [
+    readRequiredPrerequisiteReceipt(
+      repositoryRoot,
+      "mcp-resource-roundtrip.json",
+      manifest.sourceRevision,
+    ),
+    readRequiredPrerequisiteReceipt(
+      repositoryRoot,
+      "mcp-host-profile-matrix.json",
+      manifest.sourceRevision,
+    ),
+  ];
+  const packageReceiptValue = {
+    format: "mcp-app-fieldlab-receipt@1",
+    generated_at: new Date().toISOString(),
+    scenario: { id: "package.clean-revision", revision: "1" },
+    claim: {
+      text: "One clean committed revision produced an exact runtime candidate and deterministic release manifest.",
+      status: "verified",
+      method_rung: "artifact",
+      proof_ceiling: "artifact",
+    },
+    subject: {
+      source_revision: manifest.sourceRevision,
+      source_dirty: false,
+      bundle_digest: manifest.bundleDigest,
+    },
+    environment: { class: "clean-package" },
+    root_cause_confidence: "confirmed",
+    observations: {
+      detached_clean_worktree: true,
+      schema_drift_checked: true,
+      scenario_set_validated: true,
+      file_count: manifest.files.length,
+      candidate_adoption: "same-filesystem-rename",
+    },
+    evidence_refs: ["candidate:release.json"],
+    limitations: [
+      "The receipt proves the exact local candidate artifact, not candidate execution or production selection.",
+    ],
+    not_proven: packageScenario.not_proven,
+  };
+  const validatedReceipts = receiptModule.validateReceiptSetAgainstScenarios(
+    [...prerequisiteReceipts, packageReceiptValue],
+    scenarioValues,
+  );
+  const packageReceipt = validatedReceipts.find(
+    (receipt) =>
+      receipt.scenario.id === "package.clean-revision" &&
+      receipt.scenario.revision === "1",
+  );
+  if (!packageReceipt) fail("Package receipt validation returned no receipt.");
+
+  const receiptDirectory = path.join(repositoryRoot, "tmp", "receipts");
+  mkdirSync(receiptDirectory, { recursive: true });
+  const targetPath = path.join(
+    receiptDirectory,
+    "package.clean-revision@1.json",
+  );
+  const temporaryPath = `${targetPath}.${process.pid}.tmp`;
+  writeFileSync(temporaryPath, `${JSON.stringify(packageReceipt, null, 2)}\n`, {
+    encoding: "utf8",
+    flag: "wx",
+  });
+  return { targetPath, temporaryPath };
+}
+
+export async function packageRuntime(arguments_ = process.argv.slice(2)) {
   const { output: requestedOutput } = parsePackageArguments(arguments_);
   const repositoryRoot = resolveRepositoryRoot();
   const output = assertSafeNewOutput(repositoryRoot, requestedOutput);
@@ -271,6 +386,7 @@ export function packageRuntime(arguments_ = process.argv.slice(2)) {
   const worktreeRoot = path.join(worktreeParent, "checkout");
   let worktreeAdded = false;
   let adopted = false;
+  let receiptTemporaryPath;
   try {
     command("git", [
       "-C",
@@ -289,12 +405,24 @@ export function packageRuntime(arguments_ = process.argv.slice(2)) {
       SKYBRIDGE_TELEMETRY_DISABLED: "1",
     };
     command("npm", ["ci"], { cwd: worktreeRoot, env: buildEnvironment });
+    for (const script of CLEAN_WORKTREE_VALIDATION_SCRIPTS) {
+      command("npm", ["run", script], {
+        cwd: worktreeRoot,
+        env: buildEnvironment,
+      });
+    }
     command("npm", ["run", "build"], {
       cwd: worktreeRoot,
       env: buildEnvironment,
     });
     copyRuntimeRoots(worktreeRoot, stagingRoot);
     const manifest = writeReleaseManifest(stagingRoot, revision);
+    const preparedReceipt = await preparePackageReceipt(
+      repositoryRoot,
+      stagingRoot,
+      manifest,
+    );
+    receiptTemporaryPath = preparedReceipt.temporaryPath;
 
     if (existsSync(output)) {
       fail(
@@ -303,6 +431,8 @@ export function packageRuntime(arguments_ = process.argv.slice(2)) {
     }
     renameSync(stagingRoot, output);
     adopted = true;
+    renameSync(preparedReceipt.temporaryPath, preparedReceipt.targetPath);
+    receiptTemporaryPath = undefined;
     process.stdout.write(
       `${JSON.stringify(
         {
@@ -310,6 +440,7 @@ export function packageRuntime(arguments_ = process.argv.slice(2)) {
           sourceRevision: manifest.sourceRevision,
           bundleDigest: manifest.bundleDigest,
           fileCount: manifest.files.length,
+          receipt: path.relative(repositoryRoot, preparedReceipt.targetPath),
         },
         null,
         2,
@@ -334,6 +465,9 @@ export function packageRuntime(arguments_ = process.argv.slice(2)) {
     if (!adopted && existsSync(stagingRoot)) {
       rmSync(stagingRoot, { recursive: true, force: true });
     }
+    if (receiptTemporaryPath && existsSync(receiptTemporaryPath)) {
+      rmSync(receiptTemporaryPath, { force: true });
+    }
   }
 }
 
@@ -343,7 +477,7 @@ const isMain =
 
 if (isMain) {
   try {
-    packageRuntime();
+    await packageRuntime();
   } catch (error) {
     process.stderr.write(
       `package-runtime: ${error instanceof Error ? error.message : String(error)}\n`,

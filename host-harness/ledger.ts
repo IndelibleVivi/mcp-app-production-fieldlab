@@ -21,7 +21,7 @@ export interface ProtocolRequestObservation {
 }
 
 export interface CapabilityObservation {
-  discovery: "missing" | "available";
+  discovery: "pending" | "missing" | "available";
   disposition: CapabilityDisposition;
 }
 
@@ -49,6 +49,10 @@ export interface LocalHostObservationLedger {
   capabilityDispositions: {
     message: CapabilityObservation;
     download: CapabilityObservation;
+  };
+  capabilityDiscoveryTransitions: {
+    message: Array<CapabilityObservation["discovery"]>;
+    download: Array<CapabilityObservation["discovery"]>;
   };
   consoleErrors: BrowserFailureObservation[];
   pageErrors: BrowserFailureObservation[];

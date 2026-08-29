@@ -4,6 +4,7 @@ import {
   FIELDLAB_VIEW_DESCRIPTION,
   FIELDLAB_VIEW_URI,
 } from "./resource-contract.js";
+import { loadPackageVersion } from "./package-identity.js";
 import { loadRuntimeReleaseIdentity } from "./release-identity.js";
 import { loadSelfContainedFieldlabView } from "./self-contained-view.js";
 
@@ -18,11 +19,12 @@ const probeIdSchema = z
   .min(1)
   .max(48)
   .regex(/^[a-z0-9][a-z0-9._-]*$/);
+const packageVersion = loadPackageVersion();
 
 const server = new McpServer(
   {
     name: "MCP App Production Field Lab",
-    version: "0.1.0-private.0",
+    version: packageVersion,
   },
   { capabilities: {} },
 );

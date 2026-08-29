@@ -10,6 +10,7 @@ COPY LICENSE LICENSE-DOCUMENTATION.md LICENSING.md ./
 RUN npm ci --omit=dev && npm cache clean --force
 
 COPY dist ./dist
+COPY scenarios ./scenarios
 COPY release.json ./release.json
 
 USER node

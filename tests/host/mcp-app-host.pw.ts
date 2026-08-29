@@ -279,6 +279,11 @@ test("restricted profile withholds optional actions and preserves the portable f
     message: { discovery: "missing", disposition: "absent" },
     download: { discovery: "missing", disposition: "absent" },
   });
+  expect(ledger.capabilityDiscoveryTransitions).toEqual({
+    message: ["pending", "missing"],
+    download: ["pending", "missing"],
+  });
+  await expect(app.getByTestId("capability-pending")).toHaveCount(0);
   expect(
     ledger.requests
       .map(({ method }) => method)
@@ -298,9 +303,28 @@ test("capability-success advertises and accepts message and download requests", 
     "optional-capability",
   );
 
-  await app.getByRole("button", { name: /Selection return requires/ }).click();
-  await app.getByRole("button", { name: "Return selection" }).click();
-  await app.getByRole("button", { name: "Export handoff" }).click();
+  const selectedCard = app.getByRole("button", {
+    name: /Selection return requires/,
+  });
+  await selectedCard.focus();
+  await selectedCard.press("Space");
+  await expect(selectedCard).toHaveAttribute("aria-pressed", "true");
+
+  const messageAction = app.getByRole("button", { name: "Return selection" });
+  await messageAction.focus();
+  await messageAction.press("Enter");
+  await expect(
+    app.getByRole("button", { name: "Returning selection…" }),
+  ).toBeDisabled();
+  await expect(
+    app.getByRole("button", { name: "Returning selection…" }),
+  ).toHaveAttribute("aria-busy", "true");
+
+  const downloadAction = app.getByRole("button", { name: "Export handoff" });
+  await downloadAction.click();
+  await expect(
+    app.getByRole("button", { name: "Exporting handoff…" }),
+  ).toBeDisabled();
   await expect(app.locator(".fieldlab-status")).toContainText(
     "message: request-returned; download: request-returned",
   );
@@ -310,6 +334,10 @@ test("capability-success advertises and accepts message and download requests", 
       message: { discovery: "available", disposition: "success" },
       download: { discovery: "available", disposition: "success" },
     });
+  expect((await readLedger(page)).capabilityDiscoveryTransitions).toEqual({
+    message: ["pending", "available"],
+    download: ["pending", "available"],
+  });
   const ledger = await readLedger(page);
   expect(
     ledger.requests
@@ -319,6 +347,30 @@ test("capability-success advertises and accepts message and download requests", 
       ),
   ).toEqual(["ui/message", "ui/download-file"]);
   await expectCleanProductionBoundary(page);
+});
+
+test("keeps critical identity and fallback content inside 320px and 390px viewports", async ({
+  page,
+}) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 900 });
+    const { app } = await openProfile(
+      page,
+      "restricted",
+      "optional-capability",
+    );
+    await expect(
+      app.getByText("capability-proof", { exact: true }),
+    ).toBeVisible();
+    await expect(app.getByTestId("portable-fallback")).toBeVisible();
+    expect(
+      await app.locator("html").evaluate((node) => {
+        const element = node as HTMLElement;
+        return element.scrollWidth <= element.clientWidth;
+      }),
+    ).toBe(true);
+    await expectCleanProductionBoundary(page);
+  }
 });
 
 test("capability-rejected keeps download discovery separate from rejection", async ({

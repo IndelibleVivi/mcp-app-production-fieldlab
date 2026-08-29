@@ -14,6 +14,7 @@ import * as packageRuntime from "../../scripts/package-runtime.mjs";
 const {
   assertNoTrackedInstallProjection,
   canonicalFileListBytes,
+  CLEAN_WORKTREE_VALIDATION_SCRIPTS,
   parsePackageArguments,
   RUNTIME_ROOTS,
   runtimeFileEntries,
@@ -85,5 +86,16 @@ describe("runtime package contract", () => {
     expect(dockerfile).toContain(
       "COPY LICENSE LICENSE-DOCUMENTATION.md LICENSING.md ./",
     );
+  });
+
+  it("carries the exact scenario authority used by runtime evidence", () => {
+    expect(RUNTIME_ROOTS).toContain("scenarios");
+
+    const dockerfile = readFileSync("deploy/runtime/Dockerfile", "utf8");
+    expect(dockerfile).toContain("COPY scenarios ./scenarios");
+    expect(CLEAN_WORKTREE_VALIDATION_SCRIPTS).toEqual([
+      "validate:schemas",
+      "validate:scenarios",
+    ]);
   });
 });

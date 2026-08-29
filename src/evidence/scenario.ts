@@ -1,18 +1,13 @@
 import { z } from "zod";
-import { METHOD_RUNGS } from "./receipt.js";
+import {
+  assertScenarioGraphPolicy,
+  AUTHORIZATION_CLASSES,
+  EXERCISE_SURFACES,
+  METHOD_RUNGS,
+  SCENARIO_BOUNDARIES,
+} from "./policy.js";
 
-export const SCENARIO_BOUNDARIES = [
-  "transport-route",
-  "resource-admission",
-  "asset-plane",
-  "host-bridge-envelope",
-  "iframe-sandbox-policy",
-  "optional-host-capability",
-  "artifact-runtime-identity",
-  "tunnel-target",
-  "named-host-acceptance",
-  "owner-interaction",
-] as const;
+export { SCENARIO_BOUNDARIES } from "./policy.js";
 
 export const scenarioSchema = z
   .object({
@@ -23,24 +18,9 @@ export const scenarioSchema = z
     claim: z.string().min(1),
     observable_input: z.array(z.string().min(1)).min(1),
     expected_observation: z.array(z.string().min(1)).min(1),
-    exercise_surface: z.enum([
-      "source-inspection",
-      "local-process",
-      "built-artifact",
-      "local-browser-harness",
-      "clean-package",
-      "isolated-runtime",
-      "activated-runtime",
-      "named-host",
-      "owner",
-    ]),
+    exercise_surface: z.enum(EXERCISE_SURFACES),
     proof_ceiling: z.enum(METHOD_RUNGS),
-    authorization_class: z.enum([
-      "ordinary-local",
-      "operator-local",
-      "external-side-effect",
-      "owner-only",
-    ]),
+    authorization_class: z.enum(AUTHORIZATION_CLASSES),
     runner: z.string().min(1).nullable(),
     prerequisite_receipts: z.array(z.string()),
     not_proven: z.array(z.string().min(1)).min(1),
@@ -48,3 +28,11 @@ export const scenarioSchema = z
   .strict();
 
 export type FieldlabScenario = z.infer<typeof scenarioSchema>;
+
+export function validateScenarioSet(
+  values: readonly unknown[],
+): FieldlabScenario[] {
+  const scenarios = values.map((value) => scenarioSchema.parse(value));
+  assertScenarioGraphPolicy(scenarios);
+  return scenarios;
+}

@@ -12,6 +12,7 @@ export type CapabilityDisposition =
 export interface LocalHostProfile {
   id: LocalHostProfileId;
   capabilities: LocalHostCapabilities;
+  actionResponseDelayMs: number;
   downloadDisposition: Exclude<
     CapabilityDisposition,
     "absent" | "not_attempted" | "technical_failure"
@@ -51,6 +52,7 @@ export const LOCAL_HOST_PROFILES: Record<LocalHostProfileId, LocalHostProfile> =
     restricted: {
       id: "restricted",
       capabilities: sandboxCapabilities,
+      actionResponseDelayMs: 0,
       downloadDisposition: "rejected",
     },
     "capability-success": {
@@ -60,6 +62,7 @@ export const LOCAL_HOST_PROFILES: Record<LocalHostProfileId, LocalHostProfile> =
         downloadFile: {},
         message: { text: {} },
       },
+      actionResponseDelayMs: 150,
       downloadDisposition: "success",
     },
     "capability-rejected": {
@@ -69,6 +72,7 @@ export const LOCAL_HOST_PROFILES: Record<LocalHostProfileId, LocalHostProfile> =
         downloadFile: {},
         message: { text: {} },
       },
+      actionResponseDelayMs: 150,
       downloadDisposition: "rejected",
     },
   };

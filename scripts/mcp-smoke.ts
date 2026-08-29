@@ -1,11 +1,14 @@
-import { spawn, spawnSync, type ChildProcess } from "node:child_process";
+import { spawn, type ChildProcess } from "node:child_process";
 import { createHash } from "node:crypto";
-import { access, mkdir, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { createServer } from "node:net";
 import path from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
-import { parseReceipt } from "../src/evidence/receipt.js";
+import { parseReceiptAgainstScenario } from "../src/evidence/receipt.js";
+import { readGitSubject } from "../src/evidence/git-subject.js";
+import type { FieldlabScenario } from "../src/evidence/scenario.js";
+import { loadPackageVersion } from "../src/package-identity.js";
 import {
   FIELDLAB_VIEW_MIME_TYPE,
   FIELDLAB_VIEW_URI,
@@ -52,22 +55,6 @@ async function waitForServer(
   );
 }
 
-function gitSubject(): { source_revision?: string; source_dirty: boolean } {
-  const revision = spawnSync("git", ["rev-parse", "HEAD"], {
-    encoding: "utf8",
-  });
-  const status = spawnSync("git", ["status", "--porcelain"], {
-    encoding: "utf8",
-  });
-  const sourceRevision = revision.status === 0 ? revision.stdout.trim() : "";
-  return {
-    ...(sourceRevision.match(/^[a-f0-9]{40}$/)
-      ? { source_revision: sourceRevision }
-      : {}),
-    source_dirty: status.status !== 0 || status.stdout.trim().length > 0,
-  };
-}
-
 function assertEmptyDomainList(
   value: unknown,
   field: string,
@@ -81,6 +68,10 @@ await access("dist/__entry.js").catch(() => {
   throw new Error("Missing production build; run npm run build first.");
 });
 
+const packageVersion = loadPackageVersion();
+const resourceRoundtripScenario = JSON.parse(
+  await readFile("scenarios/mcp-app.resource-roundtrip.json", "utf8"),
+) as FieldlabScenario;
 const port = await availablePort();
 const origin = `http://127.0.0.1:${port}`;
 const stderr: string[] = [];
@@ -115,6 +106,15 @@ try {
   await client.connect(
     new StreamableHTTPClientTransport(new URL(`${origin}/mcp`)),
   );
+  const serverMetadata = client.getServerVersion();
+  if (
+    serverMetadata?.name !== "MCP App Production Field Lab" ||
+    serverMetadata.version !== packageVersion
+  ) {
+    throw new Error(
+      `Server metadata ${JSON.stringify(serverMetadata)} does not match the package-authoritative Field Lab identity at version ${JSON.stringify(packageVersion)}.`,
+    );
+  }
 
   const tools = await client.listTools();
   if (tools.tools.length !== 1 || tools.tools[0]?.name !== "inspect_boundary") {
@@ -212,7 +212,7 @@ try {
   }
 
   const resourceSha256 = createHash("sha256").update(html).digest("hex");
-  const receipt = parseReceipt({
+  const receiptValue = {
     format: "mcp-app-fieldlab-receipt@1",
     generated_at: new Date().toISOString(),
     scenario: { id: "mcp-app.resource-roundtrip", revision: "1" },
@@ -223,7 +223,7 @@ try {
       proof_ceiling: "process",
     },
     subject: {
-      ...gitSubject(),
+      ...readGitSubject(),
       resource: {
         uri: FIELDLAB_VIEW_URI,
         mime_type: FIELDLAB_VIEW_MIME_TYPE,
@@ -239,6 +239,7 @@ try {
     root_cause_confidence: "confirmed",
     observations: {
       transport: "streamable-http",
+      server_metadata_version: serverMetadata.version,
       tool_count: tools.tools.length,
       resource_count: resources.resources.length,
       component_only_marker_separated: true,
@@ -251,12 +252,16 @@ try {
     ],
     not_proven: [
       "clean package identity",
-      "selected production runtime",
+      "activated production runtime",
       "Secure MCP Tunnel reachability",
       "named-host admission",
       "owner acceptance",
     ],
-  });
+  };
+  const receipt = parseReceiptAgainstScenario(
+    receiptValue,
+    resourceRoundtripScenario,
+  );
   const receiptPath = path.resolve(
     "tmp",
     "receipts",
@@ -269,6 +274,7 @@ try {
     `${JSON.stringify(
       {
         transport: "streamable-http",
+        serverVersion: serverMetadata.version,
         tool: tool.name,
         resource: FIELDLAB_VIEW_URI,
         resourceBytes: bytes,

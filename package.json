@@ -12,7 +12,7 @@
   "type": "module",
   "scripts": {
     "build": "skybridge build && node scripts/assert-build.mjs",
-    "check": "npm run validate:register && npm run validate:licensing && npm run validate:schemas && npm run validate:scenarios && npm run typecheck && npm run test && npm run build && npm run test:mcp",
+    "check": "npm run validate:register && npm run validate:licensing && npm run validate:docs && npm run validate:schemas && npm run validate:scenarios && npm run typecheck && npm run test && npm run build && npm run test:mcp",
     "dev": "skybridge dev",
     "format:check": "prettier --check .",
     "format:write": "prettier --write .",
@@ -21,11 +21,12 @@
     "smoke:runtime": "node scripts/runtime-smoke.mjs",
     "start": "skybridge start",
     "test": "vitest run --maxWorkers=2",
-    "test:host": "npm run build && playwright test",
+    "test:host": "npm run build && tsx scripts/run-host-evidence.ts",
     "test:mcp": "tsx scripts/mcp-smoke.ts",
     "typecheck": "tsc --noEmit -p tsconfig.check.json",
     "validate:register": "node scripts/validate-register.mjs",
     "validate:licensing": "node scripts/validate-licensing.mjs",
+    "validate:docs": "node scripts/validate-docs.mjs",
     "validate:scenarios": "tsx scripts/validate-scenarios.ts",
     "validate:schemas": "tsx scripts/generate-schemas.ts --check"
   },

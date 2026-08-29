@@ -1,6 +1,6 @@
 # MCP App Production Field Lab agent contract
 
-Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, and `docs/current-state.md` before changing programme order, trust boundaries, public claims, or scenario semantics.
+Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, `docs/current-state.md`, and `DOCS-REGISTER.json` before changing programme order, trust boundaries, public claims, scenario semantics, or shared bilingual facts.
 
 ## Authority
 
@@ -19,7 +19,15 @@ Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, and `doc
 - `schemas/`: scenario and receipt structural contracts. Status is `verified`, `failed`, or `not_verified`; capability disposition and causal confidence remain separate dimensions.
 - `scripts/package-runtime.mjs`: clean committed-tree package candidate. It must refuse dirty source and existing outputs, and every candidate/image must carry the complete layered license boundary.
 - `docs/runbooks/`: operator procedures and exact evidence ceilings. A runbook never proves that its procedure ran.
+- `DOCS-REGISTER.json` and `scripts/validate-docs.mjs`: the bilingual pair topology and structural/shared-fact synchronization check. They do not prove semantic translation equivalence.
 - `tmp/`, `runtime-candidates/`, Playwright traces, screenshots, and raw receipts are local-only and ignored.
+
+## Paired documentation
+
+- Chinese (`zh-CN`) is the canonical/default public documentation locale. Every pair in `DOCS-REGISTER.json` must retain exact invisible pair metadata and reciprocal language switches.
+- Edit both members of an affected pair in the same change. Keep identifiers, commands, URIs, MIME values, release/commit identities, hashes, proof ceilings, status vocabulary, publication state, and license names factually synchronized; write natural independent prose rather than mechanical line-by-line translation.
+- `AGENTS.md` remains a singleton agent contract. `LICENSE` and `LICENSE-DOCUMENTATION.md` remain governing singletons. `LICENSING.md` is the governing English path map; `LICENSING.zh-CN.md` is informative only and must say so near its top.
+- When candidate or evidence facts change, update both `docs/current-state.md` and `docs/current-state.en.md` together, then update the registered current-state facts in `DOCS-REGISTER.json`. Until a remote workflow actually completes, remote CI execution remains `not_verified`.
 
 ## Evidence boundaries
 
@@ -43,4 +51,4 @@ Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, and `doc
 
 ## Verification
 
-For shared contract changes run `npm run check` and `npm run test:host`. Packaging or release-identity changes additionally require a clean committed-tree `npm run package:runtime -- --out=<new ignored path>` followed by `npm run smoke:runtime -- --candidate=<that path>`. Tunnel, named-host, and owner claims require their separate authorized runbooks and fresh receipts.
+For shared contract changes run `npm run check` and `npm run test:host`. `npm run check` includes the bilingual structural/shared-fact validator; it does not certify translation semantics. Packaging or release-identity changes additionally require a clean committed-tree `npm run package:runtime -- --out=<new ignored path>` followed by `npm run smoke:runtime -- --candidate=<that path>`. Tunnel, named-host, and owner claims require their separate authorized runbooks and fresh receipts.

@@ -19,6 +19,7 @@
 body {
   margin: 0;
   background: transparent;
+  overflow-x: hidden;
 }
 
 button {
@@ -27,6 +28,7 @@ button {
 
 .fieldlab-shell {
   width: 100%;
+  min-width: 0;
   max-width: 52rem;
   padding: 0.875rem;
 }
@@ -60,6 +62,7 @@ button {
   gap: 1rem;
   padding: 1rem 1rem 0.75rem;
   border-bottom: 1px solid var(--color-border-tertiary, rgba(87, 94, 97, 0.16));
+  min-width: 0;
 }
 
 .fieldlab-kicker {
@@ -91,6 +94,7 @@ button {
     SFMono-Regular,
     Menlo,
     monospace;
+  overflow-wrap: anywhere;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -121,6 +125,7 @@ button {
     SFMono-Regular,
     Menlo,
     monospace;
+  min-width: 0;
 }
 
 .fieldlab-content {
@@ -142,6 +147,13 @@ button {
   color: inherit;
   text-align: left;
   cursor: pointer;
+  min-width: 0;
+}
+
+.fieldlab-card:focus-visible,
+.fieldlab-action:focus-visible {
+  outline: 3px solid rgba(35, 122, 93, 0.42);
+  outline-offset: 2px;
 }
 
 .fieldlab-card[aria-pressed="true"] {
@@ -201,6 +213,13 @@ button {
   cursor: pointer;
   font-size: 0.76rem;
   font-weight: 650;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.fieldlab-action:disabled {
+  cursor: progress;
+  opacity: 0.72;
 }
 
 .fieldlab-action.secondary {
@@ -222,9 +241,15 @@ button {
 
 .fieldlab-fallback code {
   overflow-wrap: anywhere;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 @media (max-width: 34rem) {
+  .fieldlab-shell {
+    padding: 0.5rem;
+  }
+
   .fieldlab-meta {
     grid-template-columns: minmax(0, 1fr);
   }

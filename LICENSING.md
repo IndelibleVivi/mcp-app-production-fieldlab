@@ -1,9 +1,17 @@
+<!-- docs-pair: licensing-map; locale: en; mirror: LICENSING.zh-CN.md -->
+
 # Licensing
+
+[简体中文](./LICENSING.zh-CN.md)
 
 MCP App Production Field Lab uses layered licensing selected before its first
 public-source push. There was no earlier public distribution or public license
 grant by the maintainer. This map determines which public license applies to
 project-original material in current repository paths.
+
+Repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
+
+Publication state: `public-source`
 
 Copyright (c) 2026 Faye (@IndelibleVivi) for project-original material she controls.
 Contributor and third-party rights remain with their respective rights holders.
@@ -15,11 +23,13 @@ Created by Faye & Cove.
 The [Sustainable Use License v1.0](LICENSE) applies to the project's original
 functional materials, including:
 
-- `src/`, `host-harness/`, `scripts/`, `tests/`, `scenarios/`, `schemas/`, and
-  `deploy/`;
-- `FIELDLAB-REGISTER.json`, `package.json`, `package-lock.json`,
+- `src/`, `host-harness/`, `scripts/`, `tests/`, `scenarios/`, `schemas/`,
+  `deploy/`, and `.github/workflows/`;
+- `FIELDLAB-REGISTER.json`, `DOCS-REGISTER.json`, `package.json`, `package-lock.json`,
   `playwright.config.ts`, `tsconfig.json`, `tsconfig.check.json`, and
   `vite.config.ts`;
+- `scripts/validate-docs.mjs` as functional validation code, notwithstanding
+  that the Markdown documents it checks are documentation;
 - `.dockerignore`, `.gitignore`, `.prettierignore`, and future project-original
   build, CI, packaging, or configuration files; and
 - any other project-original functional file not explicitly assigned another
@@ -39,15 +49,18 @@ The project's original expression in the following documentation paths is
 licensed under
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](LICENSE-DOCUMENTATION.md):
 
-- `README.md`, `SPEC.md`, `AGENTS.md`, `LICENSE-DOCUMENTATION.md`, and
-  `LICENSING.md`;
+License identifier: `CC-BY-NC-SA-4.0`.
+
+- `README.md`, `README.en.md`, `SPEC.md`, `SPEC.en.md`, `AGENTS.md`,
+  `LICENSE-DOCUMENTATION.md`, `LICENSING.md`, and `LICENSING.zh-CN.md`;
 - project-original files under `docs/`, including Mermaid diagrams and other
   editable diagram sources or rendered projections; and
 - project-original expression under `case-studies/`.
 
 The Creative Commons license does not apply to software, schemas, manifests,
-tests, fixtures, configuration, governing license texts, or other materials
-specifically assigned SUL-1.0 above.
+tests, fixtures, configuration, or other materials specifically assigned
+SUL-1.0 above. The complete SUL text in `LICENSE` and the external Creative
+Commons legal code remain under their own governing terms, as stated below.
 
 ## Refrain provenance boundary
 

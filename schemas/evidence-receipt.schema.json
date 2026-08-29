@@ -83,7 +83,7 @@
           "properties": {
             "uri": {
               "type": "string",
-              "pattern": "^ui:\\/\\/.*"
+              "const": "ui://mcp-app-production-fieldlab/inspect-boundary/v1.html"
             },
             "mime_type": {
               "type": "string",
@@ -91,7 +91,7 @@
             },
             "bytes": {
               "type": "integer",
-              "minimum": 0,
+              "exclusiveMinimum": 0,
               "maximum": 9007199254740991
             },
             "sha256": {
@@ -108,10 +108,23 @@
         },
         "runtime_identity": {
           "type": "object",
-          "propertyNames": {
-            "type": "string"
+          "properties": {
+            "sourceRevision": {
+              "type": "string",
+              "pattern": "^[a-f0-9]{40}$"
+            },
+            "bundleDigest": {
+              "type": "string",
+              "pattern": "^sha256:[a-f0-9]{64}$"
+            },
+            "fileCount": {
+              "type": "integer",
+              "exclusiveMinimum": 0,
+              "maximum": 9007199254740991
+            }
           },
-          "additionalProperties": {}
+          "required": ["sourceRevision", "bundleDigest", "fileCount"],
+          "additionalProperties": false
         }
       },
       "additionalProperties": false
@@ -178,7 +191,8 @@
     "evidence_refs": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "string",
+        "minLength": 1
       }
     },
     "limitations": {

@@ -29,6 +29,11 @@ function renderLedger(ledger: LocalHostObservationLedger): void {
   node.textContent = JSON.stringify(ledger, null, 2);
 }
 
+async function wait(milliseconds: number): Promise<void> {
+  if (milliseconds <= 0) return;
+  await new Promise((accept) => setTimeout(accept, milliseconds));
+}
+
 async function start(): Promise<void> {
   const payload = decodeBootPayload();
   const query = new URLSearchParams(window.location.search);
@@ -59,15 +64,17 @@ async function start(): Promise<void> {
     requests: [],
     capabilityDispositions: {
       message: {
-        discovery: profile.capabilities.message ? "available" : "missing",
-        disposition: profile.capabilities.message ? "not_attempted" : "absent",
+        discovery: "pending",
+        disposition: "not_attempted",
       },
       download: {
-        discovery: profile.capabilities.downloadFile ? "available" : "missing",
-        disposition: profile.capabilities.downloadFile
-          ? "not_attempted"
-          : "absent",
+        discovery: "pending",
+        disposition: "not_attempted",
       },
+    },
+    capabilityDiscoveryTransitions: {
+      message: ["pending"],
+      download: ["pending"],
     },
     consoleErrors: [],
     pageErrors: [],
@@ -146,6 +153,7 @@ async function start(): Promise<void> {
 
   if (profile.capabilities.message) {
     bridge.onmessage = async () => {
+      await wait(profile.actionResponseDelayMs);
       ledger.capabilityDispositions.message.disposition = "success";
       refresh();
       return {};
@@ -153,6 +161,7 @@ async function start(): Promise<void> {
   }
   if (profile.capabilities.downloadFile) {
     bridge.ondownloadfile = async () => {
+      await wait(profile.actionResponseDelayMs);
       ledger.capabilityDispositions.download.disposition =
         profile.downloadDisposition;
       refresh();
@@ -168,6 +177,25 @@ async function start(): Promise<void> {
     if (initialized) return;
     initialized = true;
     void (async () => {
+      const messageDiscovery = profile.capabilities.message
+        ? "available"
+        : "missing";
+      const downloadDiscovery = profile.capabilities.downloadFile
+        ? "available"
+        : "missing";
+      ledger.capabilityDispositions.message = {
+        discovery: messageDiscovery,
+        disposition: profile.capabilities.message ? "not_attempted" : "absent",
+      };
+      ledger.capabilityDispositions.download = {
+        discovery: downloadDiscovery,
+        disposition: profile.capabilities.downloadFile
+          ? "not_attempted"
+          : "absent",
+      };
+      ledger.capabilityDiscoveryTransitions.message.push(messageDiscovery);
+      ledger.capabilityDiscoveryTransitions.download.push(downloadDiscovery);
+      refresh();
       await bridge.sendToolInput({ arguments: selectedCase.input });
       await bridge.sendToolResult(selectedCase.result);
       ledger.initialization.push({ method: "host/tool-result-delivered" });

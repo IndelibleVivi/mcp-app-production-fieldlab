@@ -14,14 +14,14 @@ const VIEW_MANIFEST_PATH = path.join(
 );
 
 interface ViewManifestEntry {
-  file?: string;
-  dynamicImports?: string[];
+  file?: unknown;
+  imports?: unknown;
+  dynamicImports?: unknown;
+  css?: unknown;
+  assets?: unknown;
 }
 
-interface ViewManifest {
-  "skybridge:view:inspect-boundary"?: ViewManifestEntry;
-  "style.css"?: ViewManifestEntry;
-}
+type ViewManifestKey = "skybridge:view:inspect-boundary" | "style.css";
 
 export interface SelfContainedFieldlabView {
   uri: typeof FIELDLAB_VIEW_URI;
@@ -35,29 +35,53 @@ function escapeClosingTag(source: string, tag: "script" | "style"): string {
   return source.replace(new RegExp(`</${tag}`, "gi"), `<\\/${tag}`);
 }
 
-function requiredManifestFile(
-  manifest: ViewManifest,
-  key: keyof ViewManifest,
-): string {
-  const entry = manifest[key];
+function requiredManifestFile(manifest: unknown, key: ViewManifestKey): string {
+  if (!manifest || typeof manifest !== "object" || Array.isArray(manifest)) {
+    throw new Error("The production MCP App manifest must be an object.");
+  }
+  const entry = (manifest as Record<string, unknown>)[key] as
+    ViewManifestEntry | undefined;
+  if (!entry || typeof entry !== "object" || Array.isArray(entry)) {
+    throw new Error(
+      `The production MCP App manifest is missing ${JSON.stringify(key)}.`,
+    );
+  }
   const file = entry?.file;
-  if (!file) {
+  if (typeof file !== "string" || file.length === 0) {
     throw new Error(
       `The production MCP App manifest is missing ${JSON.stringify(key)}.`,
     );
   }
   if (
-    path.isAbsolute(file) ||
+    path.posix.isAbsolute(file) ||
+    path.win32.isAbsolute(file) ||
     file.split(/[\\/]/).some((segment) => segment === "..")
   ) {
     throw new Error(
       `The production MCP App manifest contains an unsafe path for ${JSON.stringify(key)}.`,
     );
   }
-  if (entry.dynamicImports && entry.dynamicImports.length > 0) {
-    throw new Error(
-      `The production MCP App entry ${JSON.stringify(key)} is not self-contained.`,
-    );
+  for (const [field, label] of [
+    ["imports", "static imports"],
+    ["dynamicImports", "dynamic imports"],
+    ["css", "external CSS assets"],
+    ["assets", "external emitted assets"],
+  ] as const) {
+    const imports = entry[field];
+    if (
+      imports !== undefined &&
+      (!Array.isArray(imports) ||
+        imports.some((imported) => typeof imported !== "string"))
+    ) {
+      throw new Error(
+        `The production MCP App entry ${JSON.stringify(key)} has malformed ${label}.`,
+      );
+    }
+    if (Array.isArray(imports) && imports.length > 0) {
+      throw new Error(
+        `The production MCP App entry ${JSON.stringify(key)} retains ${label} and is not self-contained.`,
+      );
+    }
   }
   return file;
 }
@@ -68,7 +92,7 @@ export function loadSelfContainedFieldlabView(
   const assetsRoot = path.join(root, "dist", "assets");
   const manifest = JSON.parse(
     readFileSync(path.join(root, VIEW_MANIFEST_PATH), "utf8"),
-  ) as ViewManifest;
+  ) as unknown;
   const script = readFileSync(
     path.join(
       assetsRoot,

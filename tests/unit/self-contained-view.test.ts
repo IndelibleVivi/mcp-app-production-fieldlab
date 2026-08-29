@@ -56,28 +56,78 @@ describe("self-contained MCP App resource", () => {
     }
   });
 
-  it("refuses dynamic chunks and paths outside the production asset root", () => {
-    const dynamicRoot = specimenRoot({
+  it("refuses static and dynamic chunk dependencies", () => {
+    const staticRoot = specimenRoot({
       "skybridge:view:inspect-boundary": {
         file: "view.js",
-        dynamicImports: ["lazy.js"],
+        imports: ["shared.js"],
       },
       "style.css": { file: "view.css" },
     });
-    const unsafeRoot = specimenRoot({
+    const dynamicRoot = specimenRoot({
+      "skybridge:view:inspect-boundary": { file: "view.js" },
+      "style.css": { file: "view.css", dynamicImports: ["lazy.css"] },
+    });
+    try {
+      expect(() => loadSelfContainedFieldlabView(staticRoot)).toThrow(
+        /static imports/,
+      );
+      expect(() => loadSelfContainedFieldlabView(dynamicRoot)).toThrow(
+        /dynamic imports/,
+      );
+    } finally {
+      rmSync(staticRoot, { recursive: true, force: true });
+      rmSync(dynamicRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("refuses emitted assets that would escape the inline resource", () => {
+    const cssRoot = specimenRoot({
+      "skybridge:view:inspect-boundary": {
+        file: "view.js",
+        css: ["extra.css"],
+      },
+      "style.css": { file: "view.css" },
+    });
+    const assetRoot = specimenRoot({
+      "skybridge:view:inspect-boundary": {
+        file: "view.js",
+        assets: ["icon.svg"],
+      },
+      "style.css": { file: "view.css" },
+    });
+    try {
+      expect(() => loadSelfContainedFieldlabView(cssRoot)).toThrow(
+        /external CSS assets/,
+      );
+      expect(() => loadSelfContainedFieldlabView(assetRoot)).toThrow(
+        /external emitted assets/,
+      );
+    } finally {
+      rmSync(cssRoot, { recursive: true, force: true });
+      rmSync(assetRoot, { recursive: true, force: true });
+    }
+  });
+
+  it("refuses absolute and traversal paths outside the production asset root", () => {
+    const absoluteRoot = specimenRoot({
+      "skybridge:view:inspect-boundary": { file: "/tmp/view.js" },
+      "style.css": { file: "view.css" },
+    });
+    const traversalRoot = specimenRoot({
       "skybridge:view:inspect-boundary": { file: "../view.js" },
       "style.css": { file: "view.css" },
     });
     try {
-      expect(() => loadSelfContainedFieldlabView(dynamicRoot)).toThrow(
-        /not self-contained/,
+      expect(() => loadSelfContainedFieldlabView(absoluteRoot)).toThrow(
+        /unsafe path/,
       );
-      expect(() => loadSelfContainedFieldlabView(unsafeRoot)).toThrow(
+      expect(() => loadSelfContainedFieldlabView(traversalRoot)).toThrow(
         /unsafe path/,
       );
     } finally {
-      rmSync(dynamicRoot, { recursive: true, force: true });
-      rmSync(unsafeRoot, { recursive: true, force: true });
+      rmSync(absoluteRoot, { recursive: true, force: true });
+      rmSync(traversalRoot, { recursive: true, force: true });
     }
   });
 });

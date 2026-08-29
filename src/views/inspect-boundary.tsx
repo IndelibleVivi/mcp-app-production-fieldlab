@@ -1,5 +1,5 @@
 import "../index.css";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   McpAppBridge,
   useDownload,
@@ -9,7 +9,8 @@ import {
 } from "skybridge/web";
 import { useToolInfo } from "../helpers.js";
 
-type ActionStatus = "idle" | "request-returned" | "rejected" | "failed";
+type ActionStatus =
+  "idle" | "requesting" | "request-returned" | "rejected" | "failed";
 
 interface ObservedHostCapabilities {
   downloadFile?: object;
@@ -18,9 +19,15 @@ interface ObservedHostCapabilities {
   };
 }
 
+type HostCapabilityState =
+  | { status: "pending" }
+  | { status: "ready"; value: ObservedHostCapabilities }
+  | { status: "failed" };
+
 function useHostCapabilities() {
-  const [capabilities, setCapabilities] =
-    useState<ObservedHostCapabilities | null>(null);
+  const [state, setState] = useState<HostCapabilityState>({
+    status: "pending",
+  });
 
   useEffect(() => {
     let active = true;
@@ -28,30 +35,35 @@ function useHostCapabilities() {
       .getApp()
       .then((app) => {
         if (active) {
-          setCapabilities(app.getHostCapabilities() ?? {});
+          setState({
+            status: "ready",
+            value: app.getHostCapabilities() ?? {},
+          });
         }
       })
       .catch(() => {
-        if (active) setCapabilities({});
+        if (active) setState({ status: "failed" });
       });
     return () => {
       active = false;
     };
   }, []);
 
-  return capabilities;
+  return state;
 }
 
 export default function InspectBoundaryView() {
   const info = useToolInfo<"inspect_boundary">();
   const host = useHostInfo();
   const layout = useLayout();
-  const capabilities = useHostCapabilities();
+  const capabilityState = useHostCapabilities();
   const { download } = useDownload();
   const sendFollowUpMessage = useSendFollowUpMessage();
   const [selectedCardId, setSelectedCardId] = useState<string | null>(null);
   const [downloadStatus, setDownloadStatus] = useState<ActionStatus>("idle");
   const [messageStatus, setMessageStatus] = useState<ActionStatus>("idle");
+  const downloadInFlight = useRef(false);
+  const messageInFlight = useRef(false);
 
   const output = info.isSuccess ? info.output : null;
   const componentOnly = info.isSuccess
@@ -71,8 +83,12 @@ export default function InspectBoundaryView() {
     [output, selectedCardId],
   );
   const handoffText = handoff ? `${JSON.stringify(handoff, null, 2)}\n` : "";
+  const capabilities =
+    capabilityState.status === "ready" ? capabilityState.value : null;
   const canDownload = Boolean(capabilities?.downloadFile);
   const canMessage = Boolean(capabilities?.message?.text);
+  const downloadBusy = downloadStatus === "requesting";
+  const messageBusy = messageStatus === "requesting";
 
   if (!info.isSuccess || !output) {
     return (
@@ -85,7 +101,9 @@ export default function InspectBoundaryView() {
   }
 
   const requestDownload = async () => {
-    setDownloadStatus("idle");
+    if (downloadInFlight.current) return;
+    downloadInFlight.current = true;
+    setDownloadStatus("requesting");
     try {
       const result = await download({
         contents: [
@@ -102,11 +120,15 @@ export default function InspectBoundaryView() {
       setDownloadStatus(result.isError ? "rejected" : "request-returned");
     } catch {
       setDownloadStatus("failed");
+    } finally {
+      downloadInFlight.current = false;
     }
   };
 
   const requestMessage = async () => {
-    setMessageStatus("idle");
+    if (messageInFlight.current) return;
+    messageInFlight.current = true;
+    setMessageStatus("requesting");
     try {
       await sendFollowUpMessage(
         `MCP App Production Field Lab selection:\n${handoffText}`,
@@ -114,6 +136,8 @@ export default function InspectBoundaryView() {
       setMessageStatus("request-returned");
     } catch {
       setMessageStatus("failed");
+    } finally {
+      messageInFlight.current = false;
     }
   };
 
@@ -171,23 +195,48 @@ export default function InspectBoundaryView() {
               <button
                 className="fieldlab-action"
                 type="button"
+                aria-busy={messageBusy}
+                disabled={messageBusy}
                 onClick={() => void requestMessage()}
               >
-                Return selection
+                {messageBusy ? "Returning selection…" : "Return selection"}
               </button>
             ) : null}
             {canDownload ? (
               <button
                 className="fieldlab-action secondary"
                 type="button"
+                aria-busy={downloadBusy}
+                disabled={downloadBusy}
                 onClick={() => void requestDownload()}
               >
-                Export handoff
+                {downloadBusy ? "Exporting handoff…" : "Export handoff"}
               </button>
             ) : null}
           </div>
 
-          {!canMessage || !canDownload ? (
+          {capabilityState.status === "pending" ? (
+            <p
+              className="fieldlab-fallback"
+              data-testid="capability-pending"
+              role="status"
+              aria-live="polite"
+            >
+              Checking optional host actions. Portable handoff remains visible:{" "}
+              <code>{JSON.stringify(handoff)}</code>
+            </p>
+          ) : capabilityState.status === "failed" ? (
+            <p
+              className="fieldlab-fallback"
+              data-testid="capability-discovery-failed"
+              role="status"
+              aria-live="polite"
+            >
+              Optional host capability discovery failed. No host cause is
+              inferred. Portable handoff remains visible:{" "}
+              <code>{JSON.stringify(handoff)}</code>
+            </p>
+          ) : !canMessage || !canDownload ? (
             <p className="fieldlab-fallback" data-testid="portable-fallback">
               Optional host action unavailable. Portable handoff remains
               visible: <code>{JSON.stringify(handoff)}</code>
@@ -195,7 +244,12 @@ export default function InspectBoundaryView() {
           ) : null}
 
           {messageStatus !== "idle" || downloadStatus !== "idle" ? (
-            <p className="fieldlab-status" aria-live="polite">
+            <p
+              className="fieldlab-status"
+              role="status"
+              aria-live="polite"
+              aria-atomic="true"
+            >
               message: {messageStatus}; download: {downloadStatus}. A returned
               request is not owner acceptance.
             </p>

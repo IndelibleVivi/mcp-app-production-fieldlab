@@ -55,8 +55,13 @@ const documentationSection = licensingMap.split(
 )[1];
 for (const documentationPath of [
   "README.md",
+  "README.en.md",
   "SPEC.md",
+  "SPEC.en.md",
   "AGENTS.md",
+  "LICENSE-DOCUMENTATION.md",
+  "LICENSING.md",
+  "LICENSING.zh-CN.md",
   "docs/",
   "case-studies/",
 ]) {
@@ -77,7 +82,10 @@ for (const functionalPath of [
   "scenarios/",
   "schemas/",
   "deploy/",
+  ".github/workflows/",
   "FIELDLAB-REGISTER.json",
+  "DOCS-REGISTER.json",
+  "scripts/validate-docs.mjs",
   "package.json",
   "package-lock.json",
   "playwright.config.ts",
