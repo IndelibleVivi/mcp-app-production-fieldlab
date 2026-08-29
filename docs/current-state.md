@@ -78,6 +78,8 @@ Browser-host lane 通过 exact Playwright JSON attestation 的 `5/5` Chromium te
 
 Fresh run 已验证 candidate file/digest closure、candidate-owned full scenario set、四份 receipt 的 transitive prerequisite joins、production dependency install、same-origin `/healthz` release identity、package-authoritative MCP version、MCP discovery/tool call/resource readback、component-only projection，以及在 runtime receipt 落盘前完成 child stop 与 temporary projection cleanup。
 
+公开发布后，GitHub Actions [`Verify` run 33260710317](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/actions/runs/33260710317) 已在 commit `7305e1ddf4491dfa56fe8d653252a81bda0f6da5` 上完成并得到 `success`。`Source and process`、`Local browser host`、`Clean package and isolated runtime` 三个 jobs 全部通过，check-run annotation count 均为 `0`。该 run 验证的是 exact remote CI process 与它生成的 isolated candidate；它不证明 operator-selected production runtime、tunnel、named host 或 owner acceptance。
+
 | Boundary id                   | Status         | Current claim                                                                  |
 | ----------------------------- | -------------- | ------------------------------------------------------------------------------ |
 | `source-checks`               | `verified`     | Clean commit `5eba892...` 通过 docs/schema/scenario/type/unit/build/MCP checks |
@@ -85,7 +87,7 @@ Fresh run 已验证 candidate file/digest closure、candidate-owned full scenari
 | `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation 通过；ceiling=`process`                 |
 | `clean-runtime-candidate`     | `verified`     | `43`-file candidate 与 release manifest 绑定 clean commit `5eba892...`         |
 | `isolated-runtime-readback`   | `verified`     | 同一 candidate 在 disposable local process 中复现；ceiling=`activated-runtime` |
-| `remote-ci-execution`         | `not_verified` | Workflow source 存在，但没有在本轮观察到 qualifying remote GitHub Actions run  |
+| `remote-ci-execution`         | `verified`     | Run `33260710317` 在 commit `7305e1d...` 上三 job 全绿且零 annotations         |
 | `operator-production-runtime` | `not_verified` | 未尝试 operator service installation 或 production selection                   |
 | `tunnel`                      | `not_verified` | External gate；未访问 credential/profile，未运行 preflight/activation          |
 | `named-host`                  | `not_verified` | External/account gate；未执行 authenticated named-host exercise                |
@@ -94,4 +96,4 @@ Fresh run 已验证 candidate file/digest closure、candidate-owned full scenari
 
 ## Remaining gates
 
-本轮没有 push；workflow source 存在但 remote GitHub Actions 未执行。Remote CI、operator production selection、container activation/publication、tunnel、named host、owner acceptance 与 GitHub/npm publication 继续是独立 gates。未经各自授权与实际 execution，不提升 status。
+Public `main` 已 push，remote CI 已按上列 run 验证。Operator production selection、container activation/publication、tunnel、named host、owner acceptance 与 GitHub/npm publication 继续是独立 gates；本轮均未执行。未经各自授权与实际 execution，不提升 status。

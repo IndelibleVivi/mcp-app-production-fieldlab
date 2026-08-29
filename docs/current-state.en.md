@@ -78,20 +78,22 @@ The current clean committed-tree candidate and isolated readback are:
 
 The fresh run verified the candidate file/digest closure, candidate-owned full scenario set, transitive joins across the four receipts, production dependency installation, same-origin `/healthz` release identity, package-authoritative MCP version, MCP discovery/tool call/resource readback, component-only projection, and successful child stop plus temporary-projection cleanup before persisting the runtime receipt.
 
-| Boundary id                   | Status         | Current claim                                                                                 |
-| ----------------------------- | -------------- | --------------------------------------------------------------------------------------------- |
-| `source-checks`               | `verified`     | Clean commit `5eba892...` passed docs/schema/scenario/type/unit/build/MCP checks              |
-| `resource-roundtrip`          | `verified`     | Fresh clean process returned the exact self-contained resource identity above                 |
-| `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation passed; ceiling=`process`                              |
-| `clean-runtime-candidate`     | `verified`     | The `43`-file candidate and release manifest bind clean commit `5eba892...`                   |
-| `isolated-runtime-readback`   | `verified`     | The same candidate reproduced in a disposable local process; ceiling=`activated-runtime`      |
-| `remote-ci-execution`         | `not_verified` | Workflow source exists, but no qualifying remote GitHub Actions run was observed in this pass |
-| `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted                        |
-| `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted             |
-| `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted                     |
-| `owner-acceptance`            | `not_verified` | Owner-only gate; no owner observation was requested or recorded                               |
-| `release-publication`         | `not_verified` | No GitHub Release or registry/container publication was created                               |
+After publication, GitHub Actions [`Verify` run 33260710317](https://github.com/IndelibleVivi/mcp-app-production-fieldlab/actions/runs/33260710317) completed with `success` on commit `7305e1ddf4491dfa56fe8d653252a81bda0f6da5`. All three jobs—`Source and process`, `Local browser host`, and `Clean package and isolated runtime`—passed with check-run annotation count `0`. This run verifies the exact remote CI process and its isolated candidate; it does not prove an operator-selected production runtime, tunnel, named host, or owner acceptance.
+
+| Boundary id                   | Status         | Current claim                                                                            |
+| ----------------------------- | -------------- | ---------------------------------------------------------------------------------------- |
+| `source-checks`               | `verified`     | Clean commit `5eba892...` passed docs/schema/scenario/type/unit/build/MCP checks         |
+| `resource-roundtrip`          | `verified`     | Fresh clean process returned the exact self-contained resource identity above            |
+| `local-host-matrix`           | `verified`     | Exact five-test Playwright attestation passed; ceiling=`process`                         |
+| `clean-runtime-candidate`     | `verified`     | The `43`-file candidate and release manifest bind clean commit `5eba892...`              |
+| `isolated-runtime-readback`   | `verified`     | The same candidate reproduced in a disposable local process; ceiling=`activated-runtime` |
+| `remote-ci-execution`         | `verified`     | Run `33260710317` passed all three jobs at commit `7305e1d...` with zero annotations     |
+| `operator-production-runtime` | `not_verified` | No operator service installation or production selection was attempted                   |
+| `tunnel`                      | `not_verified` | External gate; no credential/profile access or preflight/activation was attempted        |
+| `named-host`                  | `not_verified` | External/account gate; no authenticated named-host exercise was attempted                |
+| `owner-acceptance`            | `not_verified` | Owner-only gate; no owner observation was requested or recorded                          |
+| `release-publication`         | `not_verified` | No GitHub Release or registry/container publication was created                          |
 
 ## Remaining gates
 
-This pass did not push. Workflow source exists, but remote GitHub Actions has not run. Remote CI, operator production selection, container activation/publication, tunnel, named host, owner acceptance, and GitHub/npm publication remain separate gates. Do not promote status without each gate's authorization and actual execution.
+Public `main` has been pushed, and remote CI is verified by the run above. Operator production selection, container activation/publication, tunnel, named host, owner acceptance, and GitHub/npm publication remain separate gates and were not exercised in this pass. Do not promote status without each gate's authorization and actual execution.
