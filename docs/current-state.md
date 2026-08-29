@@ -4,15 +4,17 @@ Updated: 2026-08-29
 
 ## Classification
 
-- Status: `local-private`
+- Status: `public-source`
 - Version: `0.1.0-private.0`
-- Remote: not configured
-- Project-original license: not selected
-- Public release: none
+- Repository: `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`
+- Visibility: public
+- Package publication: disabled by `package.json` `private: true`
+- Project-original license: not selected; no general public reuse grant
+- GitHub Release: none
 - Method authority: MCP Server Engineering Field Guide `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
 - Founding observation: Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`
 
-Field Guide remains unchanged while this Lab has no public release. `FIELDLAB-REGISTER.json` is the one-way companion/version link.
+Field Guide remains unchanged while this Lab has no versioned public release. The public source repository alone does not establish a companion release; `FIELDLAB-REGISTER.json` remains the one-way method/provenance link.
 
 ## Implemented source surfaces
 
@@ -75,5 +77,5 @@ The smoke verified candidate file bytes/digests, production dependency installat
 ## Next safe closure sequence
 
 1. Retain the ignored candidate and receipts as local evidence for source commit `ed016da10d034160989066a69348914c14188da7`.
-2. Stop. Operator production selection, tunnel, named-host, remote/publication and owner steps require their own authorization.
-3. If publication is later authorized, perform a fresh public-tree/privacy/provenance and license-boundary pass before creating a remote or release.
+2. Keep the public repository distinct from a GitHub Release, npm publication or reuse grant; none of those later gates has been exercised.
+3. Stop. Operator production selection, tunnel, named-host, owner acceptance, release publication and license selection require their own authorization.

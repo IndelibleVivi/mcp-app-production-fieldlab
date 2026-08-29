@@ -5,6 +5,7 @@
 | Field                | Value                                                 |
 | -------------------- | ----------------------------------------------------- |
 | Source repository    | `https://github.com/IndelibleVivi/refrain`            |
+| Source visibility    | Private; links require repository access              |
 | Reviewed commit      | `3e25c4b61eacaad502b4942e285855a7c38871ca`            |
 | Review date          | 2026-08-29                                            |
 | Role                 | Founding observation for neutral mechanism extraction |
@@ -13,7 +14,9 @@
 
 The exact source pin is also recorded in [`FIELDLAB-REGISTER.json`](../../FIELDLAB-REGISTER.json). Future changes in Refrain do not silently update this case study; a new review must name a new commit and revise the extraction record deliberately.
 
-## Inspected public-safe surfaces
+## Inspected private-source surfaces
+
+Refrain was re-checked as private before this Field Lab's first public-source publication. The links below preserve exact provenance for readers who already have access; this repository publishes only the independently written mechanism extraction and redistributes none of the cited source bytes.
 
 The case study relied on these paths at the pinned commit:
 
@@ -43,12 +46,12 @@ Only reusable engineering mechanisms, source-path citations and a pinned provena
 
 ## License boundary
 
-This repository has no selected project-original public license. Refrain's repository status, dependency licenses or any third-party terms do not supply one. Publication and licensing require a separate rights review and owner choice for each governed material class.
+This repository has no selected project-original public license. Refrain's private repository status, dependency licenses or any third-party terms do not supply one. Public source visibility is not a reuse grant; future licensing requires a separate rights review and owner choice for each governed material class.
 
-If this Field Lab later becomes public:
+For this Field Lab's authorized public-source publication:
 
-1. re-check the cited source visibility and rights/provenance record;
-2. verify that no copied product code, private evidence or machine-specific facts entered the tracked tree;
-3. select explicit licenses by material and rights holder;
-4. create the first public release;
-5. only then consider a small companion link in Field Guide documentation.
+1. the cited source visibility and rights/provenance record were re-checked;
+2. the tracked tree must remain free of copied product code, private evidence and machine-specific facts;
+3. no project-original license, GitHub Release or package publication is implied;
+4. any later license must be selected by material and rights holder;
+5. only a later versioned public release may justify a small companion link in Field Guide documentation.

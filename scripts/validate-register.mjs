@@ -54,11 +54,18 @@ if (
   throw new Error("Founding observation must pin one exact Refrain commit.");
 }
 if (
-  register.publication?.state !== "local-private" ||
-  register.publication?.remote_configured !== false ||
+  register.publication?.state !== "public-source" ||
+  register.publication?.repository !==
+    "https://github.com/IndelibleVivi/mcp-app-production-fieldlab" ||
+  register.publication?.visibility !== "public" ||
+  register.publication?.remote_configured !== true ||
+  register.publication?.github_release !== false ||
+  register.publication?.package_publication !== false ||
   register.publication?.license_selected !== false
 ) {
-  throw new Error("Initial publication boundary must remain local-private.");
+  throw new Error(
+    "Publication boundary must describe public source without a release, package publication, or selected license.",
+  );
 }
 
 process.stdout.write("validated FIELDLAB-REGISTER.json\n");

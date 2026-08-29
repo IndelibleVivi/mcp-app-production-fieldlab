@@ -55,8 +55,12 @@
     ]
   },
   "publication": {
-    "state": "local-private",
-    "remote_configured": false,
+    "state": "public-source",
+    "repository": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab",
+    "visibility": "public",
+    "remote_configured": true,
+    "github_release": false,
+    "package_publication": false,
     "license_selected": false
   }
 }

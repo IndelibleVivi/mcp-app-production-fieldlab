@@ -3,6 +3,11 @@
   "version": "0.1.0-private.0",
   "private": true,
   "description": "Executable MCP App production boundary laboratory",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IndelibleVivi/mcp-app-production-fieldlab.git"
+  },
+  "homepage": "https://github.com/IndelibleVivi/mcp-app-production-fieldlab#readme",
   "type": "module",
   "scripts": {
     "build": "skybridge build && node scripts/assert-build.mjs",

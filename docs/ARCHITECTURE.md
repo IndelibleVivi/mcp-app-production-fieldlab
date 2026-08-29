@@ -128,6 +128,6 @@ Ordinary local actions include source inspection, build/test, bundled Chromium e
 - selecting or deploying an immutable runtime;
 - authenticated named-host discovery or interaction;
 - recording owner acceptance;
-- remote creation, publication and license selection.
+- remote/visibility changes, GitHub or package release publication, and license selection.
 
 Credentials, cookies, private URLs, private conversations/logs and raw owner evidence never enter Git. See [Testing](TESTING.md) and the [tunnel/named-host runbook](runbooks/tunnel-and-named-host.md) for the exact claim ceilings.

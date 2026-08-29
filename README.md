@@ -2,7 +2,7 @@
 
 MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的工程实验室。它把 MCP App 从 source 写到 local process、exact resource delivery、browser host、clean package、activated runtime，再到 tunnel、named host 与 owner acceptance 的各个边界拆开验证，避免把“本地能打开”误写成“真实 host 已接受”。
 
-当前版本是 **local-private**：没有 remote，没有 public release，也没有选择 project-original license。仓库里的 tunnel、named-host 与 owner 场景是 operator runbook 和 evidence contract，不代表这些外部步骤已经运行。
+当前版本是 **public source / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release、registry publication 或 project-original public license。`package.json` 保持 `private: true`，用于阻止误发 npm；公开可见不等于 open source，也不向公众授予一般性的使用、修改或再分发许可。仓库里的 tunnel、named-host 与 owner 场景是 operator runbook 和 evidence contract，不代表这些外部步骤已经运行。
 
 ## 为什么单独成 repo
 
@@ -13,7 +13,7 @@ MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的�
 | [MCP Server Engineering Field Guide](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide) v2.0.1 | 稳定方法、dated protocol/integration profiles、evidence grammar 与通用 MCP engineering skill                                      |
 | 本 Field Lab                                                                                                     | neutral executable specimen、declared local-host profiles、scenario definitions、package/runtime observations 与 bounded receipts |
 | Softpowers                                                                                                       | 通用 implementation、debugging、verification workflow                                                                             |
-| [Refrain](https://github.com/IndelibleVivi/refrain)                                                              | founding case 的 product source、renderer、deployment、runtime 与 owner truth                                                     |
+| [Refrain](https://github.com/IndelibleVivi/refrain)（private source authority；link 需要访问权限）               | founding case 的 product source、renderer、deployment、runtime 与 owner truth                                                     |
 
 版本连接只通过 [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json) 单向固定。Field Lab 不复制 Field Guide profiles，不创建第二个通用 skill，也不把 Refrain 变成 runtime dependency。Field Guide 会保持不变，直到一个真正 public 的 Field Lab release 存在，再决定是否加入 companion discoverability link。
 
@@ -92,4 +92,4 @@ Raw receipts、Playwright traces/screenshots、credentials、cookies、private U
 
 ## Publication and rights
 
-本 repo 尚未配置 remote，也没有 project-original public license。不要从 Field Guide、Refrain 或依赖包的 license 推导本 repo 的授权；remote creation、visibility、publication 与 license selection 都是独立 owner gate。
+本 repo 的 source 在 GitHub 上公开可见，但没有 `LICENSE` 文件或 project-original public license，因此没有向公众作出一般性的 reuse grant。不要从 Field Guide、private Refrain source 或依赖包的 license 推导本 repo 的授权；GitHub source visibility、GitHub Release、npm publication 与 license selection 是不同边界。后续如需允许使用、修改或再分发，必须由 owner 另行选择 exact license 与适用 material scope。

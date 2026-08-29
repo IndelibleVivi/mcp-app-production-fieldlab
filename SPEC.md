@@ -43,9 +43,9 @@ LLM/host 提供 intent routing、tool invocation 与 conversation context；spec
 - **Workflow authority**: canonical Softpowers project；本 repo 不创建第二个通用 debugging/testing router。
 - **Initial protocol profile**: `mcp-2026-07-28`, as assessed by Field Guide profile `2026-08-15`；host-specific compatibility observations另行注明日期与环境。
 - **Reachability**: specimen 默认 stdio/loopback；不包含 public origin、账户、OAuth 或 Refrain-operated backend。
-- **Dependencies**: 只保留运行 neutral MCP App 和真实 Chromium harness 所需的 pinned production/dev dependencies；不引入 Refrain renderer、React、audio engine 或 sound assets。
+- **Dependencies**: 只保留运行 neutral MCP App 和真实 Chromium harness 所需的 pinned production/dev dependencies；不引入 Refrain product renderer、audio engine 或 sound assets。
 - **Privacy**: credentials、cookies、private host URLs、raw named-host logs 与未经清理的 screenshots 不进入 Git。Public-safe receipt 是 derived projection，不是 independent reproduction。
-- **Publication**: 初始 repo 为 local private state。未选择 project-original public license；创建 remote、选择 visibility、发布或写入 public license 是后续独立 gate。
+- **Publication**: source repository 在 owner 明确授权后公开于 `https://github.com/IndelibleVivi/mcp-app-production-fieldlab`。当前没有 GitHub Release、package publication 或 project-original public license；公开可见不构成一般 reuse grant，后续 release、registry publication 与 license selection 仍是独立 owner gates。
 
 ## Authority Split
 
@@ -78,7 +78,7 @@ The first usable repository version must include:
 - A copy of Refrain's renderer, music schema, audio assets, deployment identity or private host configuration.
 - A mock named host presented as ChatGPT acceptance.
 - CI jobs requiring private credentials or real production mutation.
-- Automatic publication, deployment, tunnel activation or owner-acceptance claims.
+- Automatic package/registry/release publication, deployment, tunnel activation or owner-acceptance claims.
 
 ## Acceptance Boundaries
 
