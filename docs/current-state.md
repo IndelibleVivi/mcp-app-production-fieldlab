@@ -28,7 +28,7 @@ Field Guide remains unchanged while this Lab has no public release. `FIELDLAB-RE
 
 ## Evidence status
 
-Fresh local verification was completed on 2026-08-29 for the source/process and declared local-browser boundaries. The repository has not yet made its initial clean commit, so clean-package and isolated-runtime claims remain `not_verified` for this repo revision. An independent worker temp snapshot is not accepted as this repository's package receipt.
+Fresh local verification was completed on 2026-08-29 for the source/process, declared local-browser, clean-package and isolated-runtime boundaries. The package/runtime proof is bound to the initial clean source commit `ed016da10d034160989066a69348914c14188da7`; the later current-state update is documentation-only and does not replace that candidate identity.
 
 `npm run check` passed with:
 
@@ -49,21 +49,31 @@ The MCP process receipt is local-only at `tmp/receipts/mcp-resource-roundtrip.js
 
 The declared local-host matrix passed `4/4` Chromium tests across `restricted`, `capability-success` and `capability-rejected`. The final rerun recorded zero console errors, page errors and unexpected network requests. Visual QA found and fixed a UTF-8 HTTP projection defect before that rerun; its screenshot remains local-only. This evidence stops at the `process` ceiling and leaves named-host/owner claims unproven.
 
-| Boundary                                        | Status         | Current claim                                                                             |
-| ----------------------------------------------- | -------------- | ----------------------------------------------------------------------------------------- |
-| register/schema/scenario/source checks          | `verified`     | `npm run check` passed on 2026-08-29                                                      |
-| production build + MCP resource roundtrip       | `verified`     | Fresh local process returned the exact self-contained resource bytes above                |
-| local declared-host matrix                      | `verified`     | Process ceiling only; 4/4 cases passed with a clean browser observation ledger            |
-| clean committed-tree runtime candidate          | `not_verified` | No artifact receipt exists for this repo revision; initial clean commit is still required |
-| isolated candidate readback                     | `not_verified` | No qualifying candidate for this repo revision has been executed                          |
-| operator-selected production runtime            | `not_verified` | No operator service installation or production selection was attempted                    |
-| tunnel configured-target authority / activation | `not_verified` | External gate; no credential/profile access, preflight or activation was attempted        |
-| named-host acceptance                           | `not_verified` | External/account gate; no authenticated named-host exercise was attempted                 |
-| owner acceptance                                | `not_verified` | Owner-only gate; no owner observation was requested or recorded                           |
+The clean committed-tree package and isolated readback then passed for the exact source commit above:
+
+- candidate: `runtime-candidates/ed016da-fieldlab-v0.1.0` (ignored/local-only);
+- file closure: `27` files;
+- bundle digest: `sha256:98c9ad89b492afaa256895dd3cf5dc818c7b684a80b249bc5e08beed9d3cc594`;
+- exact read-back resource SHA-256: `7638ebdc38857bc980a43a5740c7a49c29a61ddd12207c7baf2816491daa73b3`;
+- validated receipt: `tmp/receipts/runtime.isolated-readback@1.json` (ignored/local-only);
+- proof ceiling: `activated-runtime`, limited to the disposable isolated process.
+
+The smoke verified candidate file bytes/digests, production dependency installation, same-origin `/healthz` release identity, MCP discovery, tool call, resource readback and component-only projection. It did not build or activate a container, install an operator service, select a production runtime, touch a tunnel, use a named host or request owner acceptance.
+
+| Boundary                                        | Status         | Current claim                                                                         |
+| ----------------------------------------------- | -------------- | ------------------------------------------------------------------------------------- |
+| register/schema/scenario/source checks          | `verified`     | `npm run check` passed on 2026-08-29                                                  |
+| production build + MCP resource roundtrip       | `verified`     | Fresh local process returned the exact self-contained resource bytes above            |
+| local declared-host matrix                      | `verified`     | Process ceiling only; 4/4 cases passed with a clean browser observation ledger        |
+| clean committed-tree runtime candidate          | `verified`     | Exact commit, 27-file closure and bundle digest recorded above                        |
+| isolated candidate readback                     | `verified`     | Disposable candidate process reproduced health/tool/resource identities; ceiling only |
+| operator-selected production runtime            | `not_verified` | No operator service installation or production selection was attempted                |
+| tunnel configured-target authority / activation | `not_verified` | External gate; no credential/profile access, preflight or activation was attempted    |
+| named-host acceptance                           | `not_verified` | External/account gate; no authenticated named-host exercise was attempted             |
+| owner acceptance                                | `not_verified` | Owner-only gate; no owner observation was requested or recorded                       |
 
 ## Next safe closure sequence
 
-1. Commit the intended public-safe source/docs as one clean initial revision.
-2. From that exact clean revision, create a new ignored runtime candidate and run isolated readback.
-3. Update this file only from the repository's qualifying candidate/receipt evidence.
-4. Stop. Operator production selection, tunnel, named-host, remote/publication and owner steps require their own authorization.
+1. Retain the ignored candidate and receipts as local evidence for source commit `ed016da10d034160989066a69348914c14188da7`.
+2. Stop. Operator production selection, tunnel, named-host, remote/publication and owner steps require their own authorization.
+3. If publication is later authorized, perform a fresh public-tree/privacy/provenance and license-boundary pass before creating a remote or release.
