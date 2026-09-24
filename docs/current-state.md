@@ -8,12 +8,12 @@ Updated: 2026-09-25
 
 ## Lifecycle
 
-- Repository lifecycle: historical source; not archived as of 2026-09-25
+- Repository lifecycle: historical source; the GitHub repository page owns current archive/read-only state
 - Continuing Lab authority: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`
 - Continuing method/profile authority: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/guide`
 - Active installable skill: `mcp-boundary`
 
-下方 classification、source 与 evidence facts 记录本仓库作为独立 Field Lab 时的状态；它们不再表示新的 Lab 开发应落在这里。新的 issue、贡献与实现工作均前往 MCP Boundary。
+下方 classification、source 与 evidence facts 记录本仓库作为独立 Field Lab 时的状态；它们不再表示新的 Lab 开发应落在这里。新的 issue、贡献与实现工作均前往 MCP Boundary。本文件不以 source commit 预先声称 account-side archive 已完成；最终状态以 GitHub repository page 的 fresh read-back 为准。
 
 ## Classification
 
