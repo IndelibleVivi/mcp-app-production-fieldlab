@@ -1,12 +1,20 @@
 # MCP App Production Field Lab agent contract
 
+This is a historical source repository. Continued Field Lab development lives
+in the `lab/` subtree of
+[`IndelibleVivi/mcp-boundary`](https://github.com/IndelibleVivi/mcp-boundary),
+which also owns the maintained Guide and active `mcp-boundary` skill. Do not add
+new Lab behavior, scenarios, current installation guidance, or release work
+here. Changes in this repository should be limited to correcting its historical
+record, preserving evidence accessibility, or maintaining the migration pointer.
+
 Read `SPEC.md`, `README.md`, `docs/ARCHITECTURE.md`, `docs/TESTING.md`, `docs/current-state.md`, and `DOCS-REGISTER.json` before changing programme order, trust boundaries, public claims, scenario semantics, or shared bilingual facts.
 
 ## Authority
 
-- This repository executes neutral MCP App production scenarios and records bounded evidence. It does not own general repository-work methods, MCP protocol interpretation, named-host policy, or target-product runtime truth.
-- MCP Server Engineering Field Guide is the method/profile authority. Pin its released repository identity and commit in `FIELDLAB-REGISTER.json`; do not copy its profiles or create a second MCP reasoning skill here.
-- Softpowers owns general implementation, debugging, and verification workflow. This repo supplies domain-specific executable seams and receipts, not another workflow router.
+- This repository preserves the neutral MCP App production scenarios and bounded evidence from its standalone period. Current execution and maintenance authority is MCP Boundary's `lab/` subtree; this historical repository does not own general repository-work methods, MCP protocol interpretation, named-host policy, or target-product runtime truth.
+- The standalone MCP Server Engineering Field Guide identity and commit remain pinned in `FIELDLAB-REGISTER.json` as historical evidence. Current method/profile authority is MCP Boundary's local `guide/` subtree; do not copy its profiles or create a second MCP reasoning skill here.
+- Servotab (formerly Softpowers) owns general implementation, debugging, and verification workflow. This repo preserves domain-specific executable seams and receipts, not another workflow router.
 - Refrain is the founding evidence source, not a runtime dependency. Keep Refrain product code, fixtures, renderer, audio, deployment configuration, and owner acceptance in Refrain.
 
 ## Canonical paths

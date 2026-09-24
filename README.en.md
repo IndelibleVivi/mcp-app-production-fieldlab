@@ -4,24 +4,32 @@
 
 [简体中文](./README.md)
 
+> **Historical repository.** Continued Field Lab development has moved to the
+> `lab/` subtree of
+> [`IndelibleVivi/mcp-boundary`](https://github.com/IndelibleVivi/mcp-boundary).
+> Use MCP Boundary for new issues, contributions, and Lab development. This
+> repository preserves the former standalone source repository's provenance,
+> publication history, and reproducible evidence. The general repository-method
+> project formerly named Softpowers is now [Servotab](https://servotab.com/).
+
 MCP App Production Field Lab is an executable, reproducible, claim-bounded engineering laboratory. It separates the path from MCP App source through local process, exact resource delivery, browser host, clean package, activated runtime, tunnel, named host, and owner acceptance. The purpose is to stop “it opens locally” from becoming “the real host accepted it.”
 
 The current publication state is **`public-source` / source-available / unreleased package**. The source repository is public at [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab), but there is no GitHub Release or registry publication. Project-original functional materials use `SUL-1.0`; original documentation, diagrams, and case-study expression use `CC-BY-NC-SA-4.0`. This is not OSI open source. `package.json` remains `private: true` to prevent accidental npm publication. The tunnel, named-host, and owner scenarios are operator runbooks and evidence contracts, not claims that those external steps have run.
 
 ![Field Lab: one neutral specimen, three projection boundaries, and four local receipts](docs/architecture/field-lab-evidence-chain.en.svg)
 
-## Why this is a separate repository
+## Why this was a separate repository
 
-The existing Field Guide and this Field Lab answer different questions:
+Before consolidation into MCP Boundary, the Field Guide and this Field Lab answered different questions:
 
 | Surface                                                                                                           | Authority                                                                                                                       |
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | [MCP Server Engineering Field Guide](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide) `2.0.1` | Stable methods, dated protocol/integration profiles, evidence grammar, and the general MCP engineering skill                    |
 | This Field Lab                                                                                                    | Neutral executable specimen, declared local-host profiles, scenario definitions, package/runtime observations, bounded receipts |
-| Softpowers                                                                                                        | General implementation, debugging, and verification workflow                                                                    |
+| [Servotab](https://servotab.com/) (then named Softpowers)                                                         | General implementation, debugging, and verification workflow                                                                    |
 | [Refrain](https://github.com/IndelibleVivi/refrain) (private source authority; link requires access)              | Product source, renderer, deployment, runtime, and owner truth for the founding case                                            |
 
-The one-way version link lives in [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json): Field Guide release `2.0.1` is pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`. The Field Lab does not copy Field Guide profiles, create a second general-purpose skill, or make Refrain a runtime dependency. The Field Guide remains unchanged until a real public Field Lab release exists and a companion discoverability link can be considered.
+The historical one-way version link lives in [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json): Field Guide release `2.0.1` is pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`. The Field Lab does not copy Field Guide profiles, create a second general-purpose skill, or make Refrain a runtime dependency. MCP Boundary now owns the continuing Guide, Lab, and active skill; this version relationship describes the assessed baseline from the standalone-repository period.
 
 ![Field Guide and Field Lab: two repositories joined only by a version pin, scenario contract, and receipt grammar](docs/architecture/field-guide-field-lab.en.svg)
 

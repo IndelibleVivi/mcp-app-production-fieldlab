@@ -4,24 +4,31 @@
 
 [English](./README.en.md)
 
+> **历史仓库。** Field Lab 的持续维护已经迁至
+> [`IndelibleVivi/mcp-boundary`](https://github.com/IndelibleVivi/mcp-boundary)
+> 的 `lab/` 子树。新的 issue、贡献与 Lab 开发请前往 MCP Boundary；本仓库
+> 保留原独立 source repository 的 provenance、publication history 与可复现
+> evidence。原名 Softpowers 的通用仓库工程方法项目现名为
+> [Servotab](https://servotab.com/)。
+
 MCP App Production Field Lab 是一个可执行、可复现、claim-bounded 的工程实验室。它把 MCP App 从 source、local process、exact resource delivery、browser host、clean package、activated runtime，一直到 tunnel、named host 与 owner acceptance 的边界逐层拆开验证，避免把“本地能打开”误写成“真实 host 已接受”。
 
 当前状态是 **`public-source` / source-available / unreleased package**：source repository 公开于 [`IndelibleVivi/mcp-app-production-fieldlab`](https://github.com/IndelibleVivi/mcp-app-production-fieldlab)，但没有 GitHub Release 或 registry publication。Project-original functional materials 使用 `SUL-1.0`；原创 documentation、diagrams 与 case-study expression 使用 `CC-BY-NC-SA-4.0`。这不是 OSI open source。`package.json` 保持 `private: true`，用于阻止误发 npm。仓库里的 tunnel、named-host 与 owner scenarios 是 operator runbooks 和 evidence contracts，不代表这些外部步骤已经运行。
 
 ![Field Lab：一个 neutral specimen、三类 projection boundary 与四份 local receipt](docs/architecture/field-lab-evidence-chain.zh-CN.svg)
 
-## 为什么单独成 repo
+## 为什么曾经单独成 repo
 
-现有 Field Guide 与这个 Field Lab 解决不同问题：
+在合入 MCP Boundary 之前，Field Guide 与这个 Field Lab 解决不同问题：
 
 | Surface                                                                                                           | Authority                                                                                                                         |
 | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | [MCP Server Engineering Field Guide](https://github.com/IndelibleVivi/mcp-server-engineering-field-guide) `2.0.1` | 稳定方法、dated protocol/integration profiles、evidence grammar 与通用 MCP engineering skill                                      |
 | 本 Field Lab                                                                                                      | neutral executable specimen、declared local-host profiles、scenario definitions、package/runtime observations 与 bounded receipts |
-| Softpowers                                                                                                        | 通用 implementation、debugging、verification workflow                                                                             |
+| [Servotab](https://servotab.com/)（当时名为 Softpowers）                                                          | 通用 implementation、debugging、verification workflow                                                                             |
 | [Refrain](https://github.com/IndelibleVivi/refrain)（private source authority；link 需要访问权限）                | founding case 的 product source、renderer、deployment、runtime 与 owner truth                                                     |
 
-版本连接只通过 [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json) 单向固定：Field Guide release `2.0.1` 固定到 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`。Field Lab 不复制 Field Guide profiles，不创建第二个通用 skill，也不把 Refrain 变成 runtime dependency。Field Guide 会保持不变，直到真正的 public Field Lab release 存在，再决定是否加入 companion discoverability link。
+历史版本连接通过 [`FIELDLAB-REGISTER.json`](FIELDLAB-REGISTER.json) 单向固定：Field Guide release `2.0.1` 固定到 commit `dcb2c61a060948f92d35918af43919bdfde8b01a`。Field Lab 不复制 Field Guide profiles，不创建第二个通用 skill，也不把 Refrain 变成 runtime dependency。当前 Guide、Lab 与活跃 skill 的持续权威均在 MCP Boundary；这段版本关系只描述本仓库作为独立项目时的 assessed baseline。
 
 ![Field Guide 与 Field Lab：两座仓库只通过 version pin、scenario contract 与 receipt grammar 对接](docs/architecture/field-guide-field-lab.zh-CN.svg)
 

@@ -4,7 +4,16 @@
 
 [简体中文](./current-state.md)
 
-Updated: 2026-08-29
+Updated: 2026-09-25
+
+## Lifecycle
+
+- Repository lifecycle: historical source; not archived as of 2026-09-25
+- Continuing Lab authority: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/lab`
+- Continuing method/profile authority: `https://github.com/IndelibleVivi/mcp-boundary/tree/main/guide`
+- Active installable skill: `mcp-boundary`
+
+The classification, source, and evidence facts below record this repository's standalone Field Lab period; they no longer mean that new Lab development belongs here. Use MCP Boundary for new issues, contributions, and implementation work.
 
 ## Classification
 
@@ -17,10 +26,10 @@ Updated: 2026-08-29
 - Documentation license: `CC-BY-NC-SA-4.0`
 - License map: `LICENSING.md`
 - GitHub Release: none
-- Method authority: MCP Server Engineering Field Guide `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
+- Historical method baseline: MCP Server Engineering Field Guide `2.0.1`, pinned to commit `dcb2c61a060948f92d35918af43919bdfde8b01a`
 - Founding observation: Refrain commit `3e25c4b61eacaad502b4942e285855a7c38871ca`
 
-The Field Guide remains unchanged while this Lab has no versioned public release. A public source repository is not a companion release; `FIELDLAB-REGISTER.json` remains the one-way method/provenance link.
+`FIELDLAB-REGISTER.json` retains the standalone repository's one-way method/provenance link. That pin is historical evidence of the assessed baseline, not the continuing authority.
 
 ## Implemented source surfaces
 
